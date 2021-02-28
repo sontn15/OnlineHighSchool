@@ -14,7 +14,8 @@
         <item
             android:id="@+id/nav_imported"
             android:title="Đề thi đã tải lên"
-            android:icon="@drawable/ic_file_download"/>
+            android:icon="@drawable/ic_file_download"
+            />
         <item
         android:id="@+id/nav_exam"
         android:icon="@drawable/ic_exam"
@@ -23,7 +24,8 @@
         <item
             android:id="@+id/nav_on_exam"
             android:icon="@drawable/ic_test_on_luyen"
-            android:title="Ôn Thi Online" />
+            android:title="Ôn Thi Online"
+            android:visible="false" />
 
     </group>
 

@@ -1,34 +1,33 @@
 {
   "project_info": {
-    "project_number": "358856480314",
-    "firebase_url": "https://onlinehighschool-1f13b-default-rtdb.firebaseio.com",
-    "project_id": "onlinehighschool-1f13b",
-    "storage_bucket": "onlinehighschool-1f13b.appspot.com"
+    "project_number": "562038829841",
+    "project_id": "onlinehighschool-efcf4",
+    "storage_bucket": "onlinehighschool-efcf4.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:358856480314:android:7e2e1342caf8dce2154703",
+        "mobilesdk_app_id": "1:562038829841:android:e79caf62b0a37e5eae12b0",
         "android_client_info": {
           "package_name": "com.sh.onlinehighschool"
         }
       },
       "oauth_client": [
         {
-          "client_id": "358856480314-9aedcg9bdff6qhfef0j6iiuc9p8tgce8.apps.googleusercontent.com",
+          "client_id": "562038829841-aopd618ppalt862vbirvulqj7e98ssbr.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyD5fNtQxq51Dc3jpealIm5fFNBiu6jKvDQ"
+          "current_key": "AIzaSyBEHJvHSshtZ3p-EPbghwB_42h5r-7e0Hs"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "358856480314-9aedcg9bdff6qhfef0j6iiuc9p8tgce8.apps.googleusercontent.com",
+              "client_id": "562038829841-aopd618ppalt862vbirvulqj7e98ssbr.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
