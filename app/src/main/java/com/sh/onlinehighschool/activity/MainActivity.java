@@ -382,7 +382,7 @@ public class MainActivity extends AppCompatActivity implements OnSubjectListener
         String str = tvEmail.getText().toString();
         if (str.contains("@uneti.edu.vn")) {
             navigationView.getMenu().findItem(R.id.nav_import_gv).setVisible(true);
-            navigationView.getMenu().findItem(R.id.nav_import_deon).setVisible(true);
+            //navigationView.getMenu().findItem(R.id.nav_import_deon).setVisible(true);
             navigationView.getMenu().findItem(R.id.nav_import).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_exam).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_on_exam).setVisible(false);
@@ -393,7 +393,7 @@ public class MainActivity extends AppCompatActivity implements OnSubjectListener
             navigationView.getMenu().findItem(R.id.nav_import_gv).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_import_deon).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_exam).setVisible(true);
-            navigationView.getMenu().findItem(R.id.nav_on_exam).setVisible(true);
+            //navigationView.getMenu().findItem(R.id.nav_on_exam).setVisible(true);
             //navigationView.getMenu().findItem(R.id.nav_imported_gv).setVisible(false);
             //navigationView.getMenu().findItem(R.id.nav_imported).setVisible(true);
         }
