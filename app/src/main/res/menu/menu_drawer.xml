@@ -23,7 +23,8 @@
         <item
             android:id="@+id/nav_on_exam"
             android:icon="@drawable/ic_test_on_luyen"
-            android:title="Ôn Thi Online" />
+            android:title="Ôn Thi Online"
+            android:visible="false" />
 
     </group>
 
