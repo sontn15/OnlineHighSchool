@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin_mini"
+    android:background="@drawable/bg_button_square_white"
+    android:orientation="horizontal"
+    android:padding="@dimen/margin_small">
+
+    <TextView
+        android:id="@+id/tv_number"
+        android:layout_width="32dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorAccent"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        tools:text="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="6dp"
+            tools:text="Đề luyện tập số 1" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="@dimen/margin_mini"
+            android:layout_marginBottom="@dimen/margin_mini"
+            android:background="@color/color_line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_question"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_label_outline"
+                android:drawablePadding="@dimen/margin_mini"
+                android:textColor="@color/grey"
+                android:textSize="14sp"
+                tools:text="30 câu" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_medium"
+                android:drawableStart="@drawable/ic_access_time"
+                android:drawablePadding="@dimen/margin_mini"
+                android:textColor="@color/grey"
+                android:textSize="14sp"
+                tools:text="45 phút" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_history"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small"
+            android:drawableStart="@drawable/ic_history_16dp"
+            android:drawablePadding="@dimen/margin_mini"
+            android:lineSpacingExtra="6dp"
+            android:textColor="@color/grey"
+            android:textSize="14sp"
+            tools:text="Lần luyện tập gần nhất: 6/5/2019\nĐiểm cao nhất: 8 (6/5/2019)" />
+    </LinearLayout>
+</LinearLayout>

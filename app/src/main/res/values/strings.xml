@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">OHS - Online High School</string>
+    <string name="open">Mở</string>
+    <string name="close">Đóng</string>
+    <string name="exit">Thoát</string>
+    <string name="name">Họ và tên</string>
+    <string name="email">Email</string>
+    <string name="password">Mật khẩu</string>
+    <string name="login">Đăng nhập</string>
+    <string name="registration">Tạo tài khoản</string>
+
+    <string name="no_login">Bạn phải đăng nhập mới có thể sử dụng chức năng này</string>
+    <string name="input_exam_id">Mã đề thi</string>
+    <string name="input_subject_id">Mã môn học</string>
+    <string name="input_exam_name">Tên đề thi</string>
+    <string name="attach_file">Tải file đính kèm</string>
+    <string name="input_time">Thời gian thi (phút)</string>
+    <string name="filter_subject">Tùy chọn hiển thị môn học</string>
+    <string name="select_year"><u>1. Chọn năm học</u></string>
+    <string name="select_faculty"><u>2. Chọn khoa</u></string>
+    <string name="status_practice">Chưa có dữ liệu cho môn học này</string>
+    <string name="login_now">Đăng nhập ngay</string>
+    <string name="select_subject">Chọn môn học</string>
+
+    <string name="end_quiz"><u>Nộp bài</u></string>
+    <string name="cancel">Hủy bỏ</string>
+    <string name="confirm">Đồng ý</string>
+    <string name="end_time">Hết giờ</string>
+    <string name="list_questions">Danh sách câu hỏi</string>
+    <string name="result">Kết quả thi</string>
+    <string name="col_id_subject">ID- Môn học</string>
+    <string name="col_views">Số lượt thi</string>
+    <string name="col_score">Điểm TB (min - max)</string>
+    <string name="status_history">Chưa có dữ liệu học tập</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

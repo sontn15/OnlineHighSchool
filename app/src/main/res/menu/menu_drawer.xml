@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="@layout/activity_main">
+    <group
+        android:id="@+id/group_1"
+        android:checkableBehavior="none">
+
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home"
+            android:title="Trang chủ" />
+
+        <item
+            android:id="@+id/nav_imported"
+            android:title="Đề thi đã tải lên"
+            android:icon="@drawable/ic_file_download"/>
+        <item
+        android:id="@+id/nav_exam"
+        android:icon="@drawable/ic_exam"
+        android:title="Thi Online" />
+
+        <item
+            android:id="@+id/nav_on_exam"
+            android:icon="@drawable/ic_test_on_luyen"
+            android:title="Ôn Thi Online" />
+
+    </group>
+
+    <group
+        android:id="@+id/group_2"
+        android:checkableBehavior="none">
+
+        <item
+            android:id="@+id/nav_history"
+            android:title="Lịch sử thi"
+            android:icon="@drawable/ic_history_24dp"/>
+
+        <item
+            android:id="@+id/nav_scoreboard"
+            android:title="Bảng điểm"
+            android:icon="@drawable/ic_scoreboard"/>
+
+        <item
+            android:id="@+id/nav_import"
+            android:title="Import đề thi"
+            android:icon="@drawable/ic_file_upload"/>
+        <item
+            android:id="@+id/nav_import_deon"
+            android:title="Import đề ôn luyện"
+            android:icon="@drawable/ic_upload_on_luyen"/>
+        <item
+            android:id="@+id/nav_import_gv"
+            android:title="Import đề thi"
+            android:icon="@drawable/ic_file_upload"/>
+    </group>
+
+    <item android:id="@+id/nav_logout"
+        android:title="Đăng xuất"
+        android:icon="@drawable/ic_exit_to_app"/>
+
+</menu>

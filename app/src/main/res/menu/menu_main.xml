@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/item_filter"
+        android:title="Lọc môn học"
+        android:icon="@drawable/ic_toggle"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/item_exam"
+        android:title="Thi Online"
+        android:icon="@drawable/ic_exam"
+        app:showAsAction="always"/>
+</menu>
