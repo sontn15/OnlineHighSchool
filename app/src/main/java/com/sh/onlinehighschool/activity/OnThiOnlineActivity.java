@@ -37,7 +37,7 @@ import com.sh.onlinehighschool.utils.DBAssetHelper;
 import com.sh.onlinehighschool.utils.InputHelper;
 
 
-public class Onthionline extends AppCompatActivity implements OnSubjectListener {
+public class OnThiOnlineActivity extends AppCompatActivity implements OnSubjectListener {
     private boolean isLoading;
     private String idGV;
     private int subjectID;

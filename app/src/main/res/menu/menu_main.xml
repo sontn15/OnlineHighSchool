@@ -4,13 +4,13 @@
 
     <item
         android:id="@+id/item_filter"
-        android:title="Lọc môn học"
         android:icon="@drawable/ic_toggle"
-        app:showAsAction="always"/>
+        android:title="Lọc môn học"
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/item_exam"
-        android:title="Thi Online"
         android:icon="@drawable/ic_exam"
-        app:showAsAction="always"/>
+        android:title="Thi Online"
+        app:showAsAction="always" />
 </menu>

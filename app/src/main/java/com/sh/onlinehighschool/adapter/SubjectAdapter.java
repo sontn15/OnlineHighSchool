@@ -59,12 +59,7 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.ItemHold
             tvSubject = view.findViewById(R.id.tv_name);
             tvID = view.findViewById(R.id.tv_id);
             ivIcon = view.findViewById(R.id.iv_icon);
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.onItemChange(v, getAdapterPosition());
-                }
-            });
+            view.setOnClickListener(v -> listener.onItemChange(v, getAdapterPosition()));
         }
     }
 }

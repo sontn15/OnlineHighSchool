@@ -7,11 +7,8 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
 import androidx.core.view.ViewCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.sh.onlinehighschool.R;
-import com.sh.onlinehighschool.adapter.FacultyAdapter;
 import com.sh.onlinehighschool.adapter.YearAdapter;
 import com.sh.onlinehighschool.base.BaseDialog;
 import com.sh.onlinehighschool.utils.DBAssetHelper;
@@ -30,8 +27,8 @@ public class ToggleDialog extends BaseDialog {
 
     @Override
     protected void getData() {
-        pref = new Pref(getActivity());
-        dbAssetHelper = new DBAssetHelper(getActivity());
+        pref = new Pref(requireActivity());
+        dbAssetHelper = new DBAssetHelper(requireActivity());
     }
 
     @Override
@@ -61,14 +58,12 @@ public class ToggleDialog extends BaseDialog {
 
     private RelativeLayout layoutDialog;
     private AutoRecyclerView recyclerViewYear;
-    private RecyclerView recyclerViewFaculty;
     private ImageButton btConfirm;
 
     @Override
     protected void initWidgets(View view) {
         layoutDialog = view.findViewById(R.id.layout_dialog);
         recyclerViewYear = view.findViewById(R.id.recycler_view_year);
-        recyclerViewFaculty = view.findViewById(R.id.recycler_view_faculty);
         btConfirm = view.findViewById(R.id.bt_confirm);
     }
 
@@ -76,7 +71,6 @@ public class ToggleDialog extends BaseDialog {
     protected void configView() {
         layoutDialog.setAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.slide_up));
         initRecyclerViewYear();
-        initRecyclerViewFaculty();
         initConfirm();
     }
 
@@ -89,23 +83,10 @@ public class ToggleDialog extends BaseDialog {
         ViewCompat.setNestedScrollingEnabled(recyclerViewYear, false);
     }
 
-    private FacultyAdapter facultyAdapter;
-
-    private void initRecyclerViewFaculty() {
-        facultyAdapter = new FacultyAdapter(pref.getFaculty(), dbAssetHelper.faculties());
-        recyclerViewFaculty.setHasFixedSize(true);
-        recyclerViewFaculty.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerViewFaculty.setAdapter(facultyAdapter);
-        ViewCompat.setNestedScrollingEnabled(recyclerViewFaculty, false);
-    }
-
     private void initConfirm() {
-        btConfirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EventBus.getDefault().post(hashMap());
-                dismiss();
-            }
+        btConfirm.setOnClickListener(v -> {
+            EventBus.getDefault().post(hashMap());
+            dismiss();
         });
     }
 
@@ -113,7 +94,6 @@ public class ToggleDialog extends BaseDialog {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("filter", "1");
         hashMap.put("year", yearAdapter.getCurrentYear());
-        hashMap.put("faculty", facultyAdapter.getCurrentFaculty());
         return hashMap;
     }
 }

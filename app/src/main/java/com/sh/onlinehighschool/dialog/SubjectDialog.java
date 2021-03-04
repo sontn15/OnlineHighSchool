@@ -63,13 +63,11 @@ public class SubjectDialog extends BaseDialog {
     @Override
     protected void configView() {
         layoutDialog.setAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.slide_up));
-        final ArrayList<Subject> subjects = dbAssetHelper.subjects(Pref.DEFAULT_FACULTY, Pref.DEFAULT_YEAR);
-        SubjectRowAdapter adapter = new SubjectRowAdapter(subjects, new OnRecyclerViewListener() {
-            @Override
-            public void onItemChange(View view, int position) {
-                listener.onSubjectChange(subjects.get(position));
-                dismiss();
-            }
+        Pref pref = new Pref(requireActivity());
+        final ArrayList<Subject> subjects = new ArrayList<>(dbAssetHelper.subjects(pref.getDataInt(Pref.KHOI) + ""));
+        SubjectRowAdapter adapter = new SubjectRowAdapter(subjects, (view, position) -> {
+            listener.onSubjectChange(subjects.get(position));
+            dismiss();
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);

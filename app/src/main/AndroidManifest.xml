@@ -1,23 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.sh.onlinehighschool">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
+        android:name=".service.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".activity.Importdeon" />
-        <activity android:name=".activity.Onthionline" />
-        <activity android:name=".activity.ChangePassWord" />
-        <activity android:name=".activity.Timgiaovien" />
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="m">
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/notification_channel_id" />
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" />
+
+        <service
+            android:name=".service.MyInstanceIDService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".service.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity android:name=".activity.ImportDeOnThiActivity" />
+        <activity android:name=".activity.OnThiOnlineActivity" />
+        <activity android:name=".activity.ChangePasswordActivity" />
+        <activity android:name=".activity.TimGiaoVienActivity" />
         <activity
             android:name=".activity.LaunchActivity"
             android:theme="@style/SplashTheme">
@@ -42,9 +70,20 @@
         <activity
             android:name=".activity.ProfileActivity"
             android:theme="@style/LoginTheme" />
+
         <activity android:name=".activity.PracticeActivity" />
         <activity android:name=".activity.QuizActivity" />
         <activity android:name=".activity.HistoryActivity" />
+        <activity
+            android:name=".activity.VideoActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.UploadVideoActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.SendNotificationActivity"
+            android:theme="@style/AppTheme" />
+
         <activity
             android:name=".activity.ImportActivity"
             android:theme="@style/LoginTheme" />

@@ -63,7 +63,7 @@ public class SubjectFirebaseDialog extends BaseDialog {
     @Override
     protected void configView() {
         layoutDialog.setAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.slide_up));
-        final ArrayList<Subject> subjects = dbAssetHelper.subjects(Pref.DEFAULT_FACULTY, Pref.DEFAULT_YEAR);
+        final ArrayList<Subject> subjects = dbAssetHelper.subjects(Pref.DEFAULT_YEAR);
         SubjectRowAdapter adapter = new SubjectRowAdapter(subjects, new OnRecyclerViewListener() {
             @Override
             public void onItemChange(View view, int position) {

@@ -7,16 +7,18 @@ public class User {
     private String email;
     private String avatar;
     private String idgv;
+    private int khoi;
 
     public User() {
     }
 
-    public User(String id, String name, String email, String avatar, String idgv) {
+    public User(String id, String name, String email, String avatar, String idgv, int khoi) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.avatar = avatar;
         this.idgv = idgv;
+        this.khoi = khoi;
     }
 
     public String getId() {
@@ -57,5 +59,13 @@ public class User {
 
     public void setIdgv(String idgv) {
         this.idgv = idgv;
+    }
+
+    public int getKhoi() {
+        return khoi;
+    }
+
+    public void setKhoi(int khoi) {
+        this.khoi = khoi;
     }
 }

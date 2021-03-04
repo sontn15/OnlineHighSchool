@@ -40,10 +40,10 @@ import com.sh.onlinehighschool.utils.DBAssetHelper;
 import com.sh.onlinehighschool.views.AutoRecyclerView;
 
 
-public class ImportedgvFregment extends Fragment implements OnDeleteListener {
+public class ImportedGiaoVienFragment extends Fragment implements OnDeleteListener {
 
-    public static ImportedgvFregment newInstance(int subjectID) {
-        ImportedgvFregment fragment = new ImportedgvFregment();
+    public static ImportedGiaoVienFragment newInstance(int subjectID) {
+        ImportedGiaoVienFragment fragment = new ImportedGiaoVienFragment();
         Bundle args = new Bundle();
         args.putInt("SUBJECT", subjectID);
         fragment.setArguments(args);
@@ -96,21 +96,10 @@ public class ImportedgvFregment extends Fragment implements OnDeleteListener {
                 if (view.getId() == R.id.bt_delete) {
                     //Hiển thị dialog xóa
                     DeleteDialog dialog = DeleteDialog.newInstance(exam);
-                    dialog.setTargetFragment(ImportedgvFregment.this, 1);
+                    dialog.setTargetFragment(ImportedGiaoVienFragment.this, 1);
                     dialog.show(getFragmentManager(), dialog.getTag());
                 } else {
-                    //Bắt đầu thi
-//                    Bundle bundle = new Bundle();
-//                    bundle.putString(QuizActivity.TYPE, "exams");
-//                    bundle.putParcelable(QuizActivity.EXAM, exam);
-//                    Intent intent = new Intent(getActivity(), QuizActivity.class);
-//                    intent.putExtras(bundle);
-//                    startActivity(intent);
-//                    getActivity().overridePendingTransition(R.anim.scale_in, R.anim.no_animation);
-
-                    //Không cho thi
                     Toast.makeText(getActivity(), "Bạn đang sử dụng tài khoản cho Giáo viên", Toast.LENGTH_LONG).show();
-                    //Toast.makeText(getActivity(), "s" + mAuth.getCurrentUser().getUid(), Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -123,25 +112,17 @@ public class ImportedgvFregment extends Fragment implements OnDeleteListener {
     @Override
     public void onDelete(Exam exam) {
         adapter.remove(exam);
-        //String[] words= exam.getName().split("\\s");
-        //Toast.makeText(this, "Chuoi cat: "+words[0]+"|"+words[1]+"|"+words[2], Toast.LENGTH_LONG).show();
         String path = MainActivity.ID_GV + "/" + exam.getSubjectID() + "/" + exam.getId();
         Log.d("pathHuuHai", path);
         //Xóa dữ liệu trên Firebase Database
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("exams");
         databaseReference.child(path).setValue(null);
 
-        // DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("onluyen");
-        //databaseReference.child(path).setValue(null);
         //Xóa dữ liệu trên Firebase Storage
         String path2 = exam.getSubjectID() + "/" + MainActivity.ID_GV + "/" + exam.getId();
         Log.d("pathHuuHai2", path2);
         StorageReference storageReference = FirebaseStorage.getInstance().getReference("exams");
         storageReference.child(path + ".json").delete();
-
-        //StorageReference storageReference = FirebaseStorage.getInstance().getReference("onluyen");
-        //storageReference.child(path + ".json").delete();
-
 
         adapter.remove(exam);
         String path1 = MainActivity.ID_GV + "/" + exam.getSubjectID() + "/" + exam.getId();
@@ -166,10 +147,8 @@ public class ImportedgvFregment extends Fragment implements OnDeleteListener {
         if (subjectID == 0) {
             loadAllDatabase();
             loadAllDatabase1a();
-            Log.d("Hiii", "Mèo mẹ GV");
         } else {
             queryDatabase();
-            Log.d("Hiii", "Mèo con GV");
         }
     }
 

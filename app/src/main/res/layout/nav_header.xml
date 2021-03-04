@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Trắc nghiệm UNETI"
+        android:text="@string/app_name"
         android:textColor="#2E7D32"
         android:textSize="20sp"
         android:textStyle="bold" />

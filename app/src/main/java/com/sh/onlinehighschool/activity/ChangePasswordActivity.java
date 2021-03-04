@@ -40,7 +40,7 @@ import com.sh.onlinehighschool.utils.UniversalImageLoader;
 import java.io.IOException;
 
 
-public class ChangePassWord extends AppCompatActivity {
+public class ChangePasswordActivity extends AppCompatActivity {
 
     private Pref pref;
     private DatabaseReference databaseReference;
@@ -80,7 +80,7 @@ public class ChangePassWord extends AppCompatActivity {
             public void onClick(View v) {
                 final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 if (currentpass.getEditText().getText().toString().isEmpty() && newpass.getEditText().getText().toString().isEmpty() && cofirmpass.getEditText().getText().toString().isEmpty()) {
-                    Toast.makeText(ChangePassWord.this, "Bạn hãy nhập đầy đủ thông tin!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ChangePasswordActivity.this, "Bạn hãy nhập đầy đủ thông tin!", Toast.LENGTH_SHORT).show();
                 } else {
 
                     if (newpass.getEditText().getText().toString().equals(cofirmpass.getEditText().getText().toString())) {
@@ -94,15 +94,15 @@ public class ChangePassWord extends AppCompatActivity {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()) {
-                                                Toast.makeText(ChangePassWord.this, "Xác thực thành công!", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(ChangePasswordActivity.this, "Xác thực thành công!", Toast.LENGTH_SHORT).show();
                                                 user.updatePassword(cofirmpass.getEditText().getText().toString())
                                                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                             @Override
                                                             public void onComplete(@NonNull Task<Void> task) {
                                                                 if (task.isSuccessful()) {
-                                                                    Toast.makeText(ChangePassWord.this, "Thay đổi mật khẩu thành công!", Toast.LENGTH_SHORT).show();
+                                                                    Toast.makeText(ChangePasswordActivity.this, "Thay đổi mật khẩu thành công!", Toast.LENGTH_SHORT).show();
                                                                     auth.signOut();
-                                                                    Intent intent = new Intent(ChangePassWord.this, MainActivity.class);
+                                                                    Intent intent = new Intent(ChangePasswordActivity.this, MainActivity.class);
                                                                     startActivity(intent);
                                                                 }
                                                             }
@@ -113,7 +113,7 @@ public class ChangePassWord extends AppCompatActivity {
 
                         }
                     } else {
-                        Toast.makeText(ChangePassWord.this, "Mật khẩu không khớp!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ChangePasswordActivity.this, "Mật khẩu không khớp!", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

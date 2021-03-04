@@ -22,8 +22,6 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -34,7 +32,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -133,12 +130,9 @@ public class ImportActivity extends AppCompatActivity implements View.OnClickLis
         if (subjectID != 0) {
             inputSubjectID.getEditText().setText(String.valueOf(subjectID));
         }
-        inputSubjectID.setEndIconOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SubjectDialog dialog = new SubjectDialog();
-                dialog.show(getSupportFragmentManager(), dialog.getTag());
-            }
+        inputSubjectID.setEndIconOnClickListener(v -> {
+            SubjectDialog dialog = new SubjectDialog();
+            dialog.show(getSupportFragmentManager(), dialog.getTag());
         });
         inputSubjectID.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
@@ -316,24 +310,18 @@ public class ImportActivity extends AppCompatActivity implements View.OnClickLis
                 final String fileName = String.valueOf(System.currentTimeMillis());
                 String pathChild = mAuth.getUid() + "/" + fileName + ".json";
                 storageRef.child(pathChild).putFile(uriPath)
-                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                setInfo("Tải đề thi thành công:" +
-                                        "<br>- Mã môn học: " + subjectID +
-                                        "<br>- Tên đề thi: " + examName +
-                                        "<br>- Thời gian thi: " + time + " phút" +
-                                        "<br>- Số câu hỏi: " + questions.size());
-                                createDatabase(fileName, questions.size());
-                                onUploadComplete();
-                            }
+                        .addOnSuccessListener(taskSnapshot -> {
+                            setInfo("Tải đề thi thành công:" +
+                                    "<br>- Mã môn học: " + subjectID +
+                                    "<br>- Tên đề thi: " + examName +
+                                    "<br>- Thời gian thi: " + time + " phút" +
+                                    "<br>- Số câu hỏi: " + questions.size());
+                            createDatabase(fileName, questions.size());
+                            onUploadComplete();
                         })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                setInfo("Không thể upload file.<br><b>Lỗi:</b> " + e.getMessage());
-                                onUploadFalse();
-                            }
+                        .addOnFailureListener(e -> {
+                            setInfo("Không thể upload file.<br><b>Lỗi:</b> " + e.getMessage());
+                            onUploadFalse();
                         });
             } else {
                 setInfo("File đính kèm không hợp lệ.<br><b>Lỗi:</b> Định dạng câu hỏi không đúng");
@@ -353,7 +341,6 @@ public class ImportActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String path = mAuth.getUid() + "/" + fileName;
-                //String path =  String.valueOf(subjectID);
                 myRef.child(path).child("name").setValue(examName);
                 myRef.child(path).child("time").setValue(time);
                 myRef.child(path).child("subjectID").setValue(subjectID);

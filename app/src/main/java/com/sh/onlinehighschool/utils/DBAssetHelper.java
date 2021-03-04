@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 import com.sh.onlinehighschool.model.Exam;
 import com.sh.onlinehighschool.model.Question;
@@ -28,22 +27,15 @@ public class DBAssetHelper extends SQLiteAssetHelper {
     }
 
     /*Danh sách môn học*/
-    public ArrayList<Subject> subjects(String faculty, String year){
+    public ArrayList<Subject> subjects(String year) {
         ArrayList<Subject> list = new ArrayList<>();
 
         String condition = "";
-        if (!faculty.equals(Pref.DEFAULT_FACULTY)){
-            condition = condition + "faculty='" + faculty + "'";
-        }
-
-        if (getYear(year) != 0){
-            if (!condition.equals("")){
-                condition = condition + " AND ";
-            }
+        if (getYear(year) != 0) {
             condition = condition + "year=" + getYear(year);
         }
 
-        if (!condition.equals("")){
+        if (!condition.equals("")) {
             condition = " WHERE " + condition;
         }
 
@@ -66,7 +58,7 @@ public class DBAssetHelper extends SQLiteAssetHelper {
     }
 
     /*Tải môn học theo ID*/
-    public Subject subject(int id){
+    public Subject subject(int id) {
         Subject subject = new Subject();
         SQLiteDatabase db = getReadableDatabase();
         String[] args = new String[]{String.valueOf(id)};
@@ -87,7 +79,7 @@ public class DBAssetHelper extends SQLiteAssetHelper {
     }
 
     /*Danh sách đề thi theo môn học*/
-    public ArrayList<Exam> exams(int subjectID){
+    public ArrayList<Exam> exams(int subjectID) {
         ArrayList<Exam> list = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
         String[] args = new String[]{String.valueOf(subjectID)};
@@ -100,7 +92,7 @@ public class DBAssetHelper extends SQLiteAssetHelper {
         Cursor c = db.rawQuery(sql, args);
         c.moveToFirst();
         while (!c.isAfterLast()) {
-            if (c.getInt(3) != 0){
+            if (c.getInt(3) != 0) {
                 Exam exam = new Exam(
                         c.getLong(0),
                         subjectID,
@@ -120,7 +112,7 @@ public class DBAssetHelper extends SQLiteAssetHelper {
     }
 
     /*Đề thi theo ID*/
-    public Exam exam(long id){
+    public Exam exam(long id) {
         Exam exam = new Exam();
         SQLiteDatabase db = getReadableDatabase();
         String[] args = new String[]{String.valueOf(id)};
@@ -143,7 +135,7 @@ public class DBAssetHelper extends SQLiteAssetHelper {
     }
 
     /*Câu hỏi theo đề thi*/
-    public ArrayList<Question> questions(long examID){
+    public ArrayList<Question> questions(long examID) {
         ArrayList<Question> list = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
         String[] args = new String[]{String.valueOf(examID)};
@@ -155,16 +147,16 @@ public class DBAssetHelper extends SQLiteAssetHelper {
             question.setAsk(c.getString(2));
             question.setImg(c.getString(3));
             List<String> options = new ArrayList<>();
-            if (c.getString(4) != null  && !c.getString(4).trim().equals("")){
+            if (c.getString(4) != null && !c.getString(4).trim().equals("")) {
                 options.add(c.getString(4));
             }
-            if (c.getString(5) != null  && !c.getString(5).trim().equals("")){
+            if (c.getString(5) != null && !c.getString(5).trim().equals("")) {
                 options.add(c.getString(5));
             }
-            if (c.getString(6) != null  && !c.getString(6).trim().equals("")){
+            if (c.getString(6) != null && !c.getString(6).trim().equals("")) {
                 options.add(c.getString(6));
             }
-            if (c.getString(7) != null  && !c.getString(7).trim().equals("")){
+            if (c.getString(7) != null && !c.getString(7).trim().equals("")) {
                 options.add(c.getString(7));
             }
             question.setOptions(options);
@@ -178,13 +170,13 @@ public class DBAssetHelper extends SQLiteAssetHelper {
     }
 
     /*Danh sách khoa*/
-    public ArrayList<String> faculties(){
+    public ArrayList<String> faculties() {
         ArrayList<String> list = new ArrayList<>();
         list.add(Pref.DEFAULT_FACULTY);
         SQLiteDatabase db = getReadableDatabase();
         Cursor c = db.rawQuery("SELECT faculty FROM subjects GROUP BY faculty", null);
         c.moveToFirst();
-        while (!c.isAfterLast()){
+        while (!c.isAfterLast()) {
             list.add(c.getString(0));
             c.moveToNext();
         }
@@ -193,31 +185,34 @@ public class DBAssetHelper extends SQLiteAssetHelper {
     }
 
     /*Danh sách năm*/
-    public ArrayList<String> years(){
+    public ArrayList<String> years() {
         ArrayList<String> list = new ArrayList<>();
         list.add(Pref.DEFAULT_YEAR);
         SQLiteDatabase db = getReadableDatabase();
         Cursor c = db.rawQuery("SELECT year FROM subjects GROUP BY year ORDER BY year ASC", null);
         c.moveToFirst();
-        while (!c.isAfterLast()){
-            list.add("Năm thứ " + c.getInt(0));
+        while (!c.isAfterLast()) {
+            list.add("Khối " + c.getInt(0));
             c.moveToNext();
         }
         c.close();
         return list;
     }
 
-    private static int getYear(String s){
-        int year = 0;
-        if (s != null){
+    private static int getYear(String s) {
+        if (!s.equalsIgnoreCase("Tất cả các khối")) {
+            int year;
             String[] words = s.split("\\s");
             String last = words[words.length - 1];
             try {
-                year =  Integer.parseInt(String.valueOf(last));
-            } catch (Exception e){
+                year = Integer.parseInt(String.valueOf(last));
+            } catch (Exception e) {
                 e.printStackTrace();
+                year = 12;
             }
+            return year;
+        } else {
+            return 12;
         }
-        return year;
     }
 }

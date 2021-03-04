@@ -61,7 +61,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Importdeon extends AppCompatActivity implements View.OnClickListener, OnSubjectListener {
+public class TimGiaoVienActivity extends AppCompatActivity implements View.OnClickListener, OnSubjectListener {
+
     private boolean isLoading;
     private int subjectID;
     private int time;
@@ -258,7 +259,12 @@ public class Importdeon extends AppCompatActivity implements View.OnClickListene
 
             @Override
             public void afterTextChanged(Editable s) {
-                madethi = Integer.parseInt(s.toString());
+                try {
+                    madethi = Integer.parseInt(s.toString());
+                } catch (Exception e) {
+                    madethi = 0;
+                }
+
             }
         });
     }
@@ -389,7 +395,7 @@ public class Importdeon extends AppCompatActivity implements View.OnClickListene
             final ArrayList<Question> questions = IOHelper.questions(jString);
             if (questions.size() > 0) {
                 onLoading();
-                StorageReference storageRef = FirebaseStorage.getInstance().getReference("onluyen");
+                StorageReference storageRef = FirebaseStorage.getInstance().getReference("exams");
                 //Tên file tải lên
                 //final String fileName = String.valueOf(System.currentTimeMillis());
                 final String fileName = String.valueOf(String.valueOf(madethi));
@@ -431,7 +437,7 @@ public class Importdeon extends AppCompatActivity implements View.OnClickListene
     private DatabaseReference myRef;
 
     private void createDatabase(final String fileName, final int ques) {
-        myRef = FirebaseDatabase.getInstance().getReference("onluyen");
+        myRef = FirebaseDatabase.getInstance().getReference("exams");
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -475,7 +481,7 @@ public class Importdeon extends AppCompatActivity implements View.OnClickListene
 
     private void initToolbar() {
         toolbar.setTitleTextColor(getResources().getColor(R.color.white));
-        toolbar.setTitle("Import đề ôn thi");
+        toolbar.setTitle("Import đề thi");
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
         if (actionbar != null) {
@@ -619,7 +625,7 @@ public class Importdeon extends AppCompatActivity implements View.OnClickListene
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(Importdeon.this, ":Lỗi truy vấn! ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(TimGiaoVienActivity.this, ":Lỗi truy vấn! ", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -68,7 +68,7 @@ public class ProfileActivity extends AppCompatActivity {
         tvchangepass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ProfileActivity.this, ChangePassWord.class);
+                Intent intent = new Intent(ProfileActivity.this, ChangePasswordActivity.class);
                 startActivity(intent);
             }
         });

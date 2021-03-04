@@ -39,6 +39,8 @@ import com.sh.onlinehighschool.utils.DBAssetHelper;
 import com.sh.onlinehighschool.utils.Pref;
 import com.sh.onlinehighschool.views.AutoRecyclerView;
 
+import java.util.Objects;
+
 
 public class ImportedFragment extends Fragment implements OnDeleteListener {
 
@@ -117,7 +119,7 @@ public class ImportedFragment extends Fragment implements OnDeleteListener {
     @Override
     public void onDelete(Exam exam) {
         adapter.remove(exam);
-        Pref pref = new Pref(getActivity());
+        Pref pref = new Pref(Objects.requireNonNull(getActivity()));
         String path = pref.getData(Pref.UID) + "/" + exam.getId();
         //Xóa dữ liệu trên Firebase Database
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("upload");

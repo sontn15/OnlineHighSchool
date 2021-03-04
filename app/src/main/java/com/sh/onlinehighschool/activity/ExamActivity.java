@@ -151,13 +151,6 @@ public class ExamActivity extends AppCompatActivity implements OnSubjectListener
         if (idGV != null) {
             inputTeacherID.getEditText().setText(String.valueOf(idGV));
         }
-//        inputTeacherID.setEndIconOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                SubjectDialog dialog = new SubjectDialog();
-//                dialog.show(getSupportFragmentManager(), dialog.getTag());
-//            }
-//        });
         inputTeacherID.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -296,15 +289,7 @@ public class ExamActivity extends AppCompatActivity implements OnSubjectListener
                                         overridePendingTransition(R.anim.scale_in, R.anim.no_animation);
                                         outLoading();
                                     }
-                                    //Toast.makeText(ExamActivity.this, checkThi+"", Toast.LENGTH_SHORT).show();
                                     outLoading();
-                                    //String arr[] =
-                                    //if(inputSubjectID*inputExamID*inputTeacherID.equals(arr[i])
-                                    //{ Toast ("Ban da lam bai thi")
-                                    //else
-                                    ///ghi vao firebase
-                                    //IDacc=>dsdathi
-                                    //dsdathi = dsdathi+"|"+inputSubjectID*inputExamID*inputTeacherID
 
                                 } catch (Exception e) {
                                     e.printStackTrace();

@@ -13,20 +13,18 @@
 
         <item
             android:id="@+id/nav_imported"
-            android:title="Đề thi đã tải lên"
             android:icon="@drawable/ic_file_download"
-            />
+            android:title="Đề thi đã tải lên" />
         <item
-        android:id="@+id/nav_exam"
-        android:icon="@drawable/ic_exam"
-        android:title="Thi Online" />
+            android:id="@+id/nav_exam"
+            android:icon="@drawable/ic_exam"
+            android:title="Thi Online" />
 
         <item
             android:id="@+id/nav_on_exam"
             android:icon="@drawable/ic_test_on_luyen"
             android:title="Ôn Thi Online"
             android:visible="false" />
-
     </group>
 
     <group
@@ -35,30 +33,42 @@
 
         <item
             android:id="@+id/nav_history"
-            android:title="Lịch sử thi"
-            android:icon="@drawable/ic_history_24dp"/>
+            android:icon="@drawable/ic_history_24dp"
+            android:title="Lịch sử thi" />
 
         <item
             android:id="@+id/nav_scoreboard"
-            android:title="Bảng điểm"
-            android:icon="@drawable/ic_scoreboard"/>
+            android:icon="@drawable/ic_scoreboard"
+            android:title="Bảng điểm" />
 
         <item
             android:id="@+id/nav_import"
-            android:title="Import đề thi"
-            android:icon="@drawable/ic_file_upload"/>
+            android:icon="@drawable/ic_file_upload"
+            android:title="Import đề thi" />
         <item
             android:id="@+id/nav_import_deon"
-            android:title="Import đề ôn luyện"
-            android:icon="@drawable/ic_upload_on_luyen"/>
+            android:icon="@drawable/ic_upload_on_luyen"
+            android:title="Import đề ôn luyện" />
         <item
             android:id="@+id/nav_import_gv"
-            android:title="Import đề thi"
-            android:icon="@drawable/ic_file_upload"/>
+            android:icon="@drawable/ic_file_upload"
+            android:title="Import đề thi" />
+
+        <item
+            android:id="@+id/nav_upload_gv"
+            android:icon="@drawable/ic_file_upload"
+            android:title="Upload video bài giảng" />
+
+        <item
+            android:id="@+id/nav_announce_gv"
+            android:icon="@drawable/ic_label_outline"
+            android:title="Gửi thông báo" />
+
     </group>
 
-    <item android:id="@+id/nav_logout"
-        android:title="Đăng xuất"
-        android:icon="@drawable/ic_exit_to_app"/>
+    <item
+        android:id="@+id/nav_logout"
+        android:icon="@drawable/ic_exit_to_app"
+        android:title="Đăng xuất" />
 
 </menu>

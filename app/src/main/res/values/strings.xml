@@ -35,4 +35,10 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title">Tiêu đề</string>
+    <string name="imageurl">Đường dẫn ảnh</string>
+    <string name="videoid">ID video</string>
+    <string name="notifications_admin_channel_name">notification_admin_channel_name</string>
+    <string name="notifications_admin_channel_description">notifications_admin_channel_description</string>
+    <string name="notification_channel_id">default</string>
 </resources>

@@ -25,6 +25,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.sh.onlinehighschool.R;
 import com.sh.onlinehighschool.model.User;
 import com.sh.onlinehighschool.utils.InputHelper;
@@ -162,10 +163,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 pref.saveData(Pref.EMAIL, user.getEmail());
                 pref.saveData(Pref.PASSWORD, userPassword);
                 pref.saveData(Pref.NAME, user.getName());
+                pref.saveData(Pref.KHOI, user.getKhoi());
                 if (user.getAvatar() != null) {
                     pref.saveData(Pref.AVATAR, user.getAvatar());
                 }
+
+                String khoiHienTai = "khoi" + user.getKhoi();
+                FirebaseMessaging.getInstance().subscribeToTopic(khoiHienTai);
+                Log.d("SONTN7", "subscribeToTopic " + khoiHienTai + " successfully!");
+
                 kiemtraGV();
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.no_animation);
                 finish();
             }
 
@@ -180,7 +190,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         pref = new Pref(this);
         String str = pref.getData(Pref.EMAIL);
         try {
-            if (str.contains("@uneti.edu.vn")) {
+            if (str.contains("@edu.vn")) {
                 DatabaseReference mDatabase;
                 mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(pref.getData(Pref.UID)).child("idgv");
 

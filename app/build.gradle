@@ -41,6 +41,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:19.6.0'
     implementation 'com.google.firebase:firebase-storage:19.2.1'
     implementation 'com.google.firebase:firebase-auth:20.0.2'
+    implementation 'com.google.firebase:firebase-messaging:21.0.1'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
 
     implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
@@ -51,4 +55,14 @@ dependencies {
     implementation 'com.readystatesoftware.sqliteasset:sqliteassethelper:2.0.1'
     implementation 'com.android.volley:volley:1.1.1'
     implementation 'org.greenrobot:eventbus:3.1.1'
+
+    // Image loading lib
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+    // Youtube lib
+    implementation 'com.github.PierfrancescoSoffritti:AndroidYouTubePlayer:7.0.1'
+    // bind view
+    implementation 'com.jakewharton:butterknife:10.1.0'
+    annotationProcessor "com.jakewharton:butterknife-compiler:10.1.0"
+
 }

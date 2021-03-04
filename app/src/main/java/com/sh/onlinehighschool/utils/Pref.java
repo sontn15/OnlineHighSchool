@@ -9,10 +9,12 @@ public class Pref {
     private static final int PRIVATE_MODE = 0;
 
     public static final String UID = "UID";
+    public static final String ID_GV = "IDGV";
     public static final String NAME = "NAME";
     public static final String EMAIL = "EMAIL";
     public static final String PASSWORD = "PASSWORD";
     public static final String AVATAR = "AVATAR";
+    public static final String KHOI = "KHOI";
 
     public static final String YEAR = "YEAR";
     public static final String FACULTY = "FACULTY";
@@ -23,30 +25,42 @@ public class Pref {
         preferences = context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
     }
 
-    public void saveData(String key, int value){
+
+    public void clearAllData() {
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.clear();
+        editor.apply();
+    }
+
+    public void saveData(String key, int value) {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putInt(key, value);
         editor.apply();
     }
 
-    public void saveData(String key, String value){
+    public void saveData(String key, String value) {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(key, value);
         editor.apply();
     }
 
-    public String getData(String key){
+    public String getData(String key) {
         return preferences.getString(key, null);
     }
 
-    public static final String DEFAULT_YEAR = "Tất cả các năm";
-    public String getYear(){
+    public int getDataInt(String key) {
+        return preferences.getInt(key, -1);
+    }
+
+    public static final String DEFAULT_YEAR = "Tất cả các khối";
+
+    public String getYear() {
         return preferences.getString(YEAR, DEFAULT_YEAR);
     }
 
-    public static final String DEFAULT_FACULTY = "Tất cả các khoa";
-    //public static final String DEFAULT_FACULTY = "Công nghệ thông tin";
-    public String getFaculty(){
+    public static final String DEFAULT_FACULTY = "Tất cả các ban";
+
+    public String getFaculty() {
         return preferences.getString(FACULTY, DEFAULT_FACULTY);
     }
 }

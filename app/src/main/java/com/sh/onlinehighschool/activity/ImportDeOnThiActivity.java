@@ -24,7 +24,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,7 +34,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -61,8 +59,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Timgiaovien extends AppCompatActivity implements View.OnClickListener, OnSubjectListener {
-
+public class ImportDeOnThiActivity extends AppCompatActivity implements View.OnClickListener, OnSubjectListener {
     private boolean isLoading;
     private int subjectID;
     private int time;
@@ -259,39 +256,12 @@ public class Timgiaovien extends AppCompatActivity implements View.OnClickListen
 
             @Override
             public void afterTextChanged(Editable s) {
-                try {
-                    madethi = Integer.parseInt(s.toString());
-                } catch (Exception e) {
-                    madethi = 0;
-                }
-
+                madethi = Integer.parseInt(s.toString());
             }
         });
     }
 
-    /*private void inputmagv(){
-        if (magiaovien != 0){
-            magv.getEditText().setText(String.valueOf(magiaovien));
-        }
-        //mamh.getEditText().setText(String.valueOf(madethi));
-        magv.getEditText().addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                magv.setErrorEnabled(false);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                magiaovien=Integer.parseInt(s.toString());
-            }
-        });
-    }*/
-    //@Override
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bt_next:
@@ -395,27 +365,21 @@ public class Timgiaovien extends AppCompatActivity implements View.OnClickListen
             final ArrayList<Question> questions = IOHelper.questions(jString);
             if (questions.size() > 0) {
                 onLoading();
-                StorageReference storageRef = FirebaseStorage.getInstance().getReference("exams");
+                StorageReference storageRef = FirebaseStorage.getInstance().getReference("onluyen");
                 //Tên file tải lên
-                //final String fileName = String.valueOf(System.currentTimeMillis());
-                final String fileName = String.valueOf(String.valueOf(madethi));
-                //String pathChild = mAuth.getUid() + "/" + fileName + ".json";
-                //String pathChild = String.valueOf(subjectID)+ "/"+String.valueOf(magiaovien)+"/" + String.valueOf(madethi)+".json";
-                String pathChild = String.valueOf(subjectID) + "/" + idGV + "/" + String.valueOf(madethi) + ".json";
+                final String fileName = String.valueOf(madethi);
+                String pathChild = subjectID + "/" + idGV + "/" + madethi + ".json";
                 storageRef.child(pathChild).putFile(uriPath)
-                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                setInfo("Tải đề thi thành công:" +
-                                        "<br>- Mã môn học: " + subjectID +
-                                        "<br>- Tên đề thi: " + examName +
-                                        "<br>- Mã đề thi: " + madethi +
-                                        "<br>- Mã giáo viên: " + idGV +
-                                        "<br>- Thời gian thi: " + time + " phút" +
-                                        "<br>- Số câu hỏi: " + questions.size());
-                                createDatabase(fileName, questions.size());
-                                onUploadComplete();
-                            }
+                        .addOnSuccessListener(taskSnapshot -> {
+                            setInfo("Tải đề thi thành công:" +
+                                    "<br>- Mã môn học: " + subjectID +
+                                    "<br>- Tên đề thi: " + examName +
+                                    "<br>- Mã đề thi: " + madethi +
+                                    "<br>- Mã giáo viên: " + idGV +
+                                    "<br>- Thời gian thi: " + time + " phút" +
+                                    "<br>- Số câu hỏi: " + questions.size());
+                            createDatabase(fileName, questions.size());
+                            onUploadComplete();
                         })
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
@@ -437,13 +401,11 @@ public class Timgiaovien extends AppCompatActivity implements View.OnClickListen
     private DatabaseReference myRef;
 
     private void createDatabase(final String fileName, final int ques) {
-        myRef = FirebaseDatabase.getInstance().getReference("exams");
+        myRef = FirebaseDatabase.getInstance().getReference("onluyen");
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //String path = mAuth.getUid() + "/" + fileName;
-                //Toast.makeText(Timgiaovien.this, idGV, Toast.LENGTH_SHORT).show();
-                String path = String.valueOf(idGV) + "/" + String.valueOf(subjectID) + "/" + String.valueOf(madethi);
+                String path = idGV + "/" + subjectID + "/" + madethi;
                 myRef.child(path).child("name").setValue(idGV + " " + madethi + " - " + examName);
                 myRef.child(path).child("time").setValue(time);
                 myRef.child(path).child("subjectID").setValue(subjectID);
@@ -481,7 +443,7 @@ public class Timgiaovien extends AppCompatActivity implements View.OnClickListen
 
     private void initToolbar() {
         toolbar.setTitleTextColor(getResources().getColor(R.color.white));
-        toolbar.setTitle("Import đề thi");
+        toolbar.setTitle("Import đề ôn thi");
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
         if (actionbar != null) {
@@ -610,22 +572,19 @@ public class Timgiaovien extends AppCompatActivity implements View.OnClickListen
         Pref pref;
         pref = new Pref(this);
         String s = pref.getData(Pref.UID);
-        //Toast.makeText(this, "s"+s, Toast.LENGTH_SHORT).show();
         DatabaseReference mDatabase;
-        //mDatabase = FirebaseDatabase.getInstance().getReference().child("conmeo").child("meoden");
         mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(s).child("idgv");
 
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String value = dataSnapshot.getValue(String.class);
-                //Toast.makeText(Timgiaovien.this,"IDGV: " + value, Toast.LENGTH_SHORT).show();
                 idGV = value;
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(Timgiaovien.this, ":Lỗi truy vấn! ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ImportDeOnThiActivity.this, ":Lỗi truy vấn! ", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -8,8 +8,11 @@ import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,10 +21,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,6 +30,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.sh.onlinehighschool.R;
 import com.sh.onlinehighschool.model.User;
+import com.sh.onlinehighschool.utils.DBAssetHelper;
 import com.sh.onlinehighschool.utils.InputHelper;
 import com.sh.onlinehighschool.utils.Pref;
 
@@ -85,6 +86,10 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     private ProgressBar progressBar;
     private TextView tvLogin;
     private ImageButton btRegistration;
+    private Spinner spnKhoi;
+
+    private String[] danhSachKhoi = {"Khối 10", "Khối 11", "Khối 12"};
+    private int khoiSelected = 10;
 
     private void initWidgets() {
         toolbar = findViewById(R.id.toolbar);
@@ -96,6 +101,22 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         tvLogin.setOnClickListener(this);
         btRegistration = findViewById(R.id.bt_registration);
         btRegistration.setOnClickListener(this);
+
+        spnKhoi = findViewById(R.id.spnKhoiRegister);
+        ArrayAdapter aa = new ArrayAdapter(this, android.R.layout.simple_spinner_item, danhSachKhoi);
+        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnKhoi.setAdapter(aa);
+        spnKhoi.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                khoiSelected = Integer.parseInt(danhSachKhoi[position].split(" ")[1]);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     private void initToolbar() {
@@ -230,10 +251,11 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 //add new user
                 String userID = mAuth.getCurrentUser().getUid();
-                User user = new User(userID, name, email, null, null);
+                User user = new User(userID, name, email, null, null, khoiSelected);
                 pref.saveData(Pref.UID, userID);
                 pref.saveData(Pref.EMAIL, email);
                 pref.saveData(Pref.PASSWORD, password);
+                pref.saveData(Pref.KHOI, khoiSelected);
                 pref.saveData(Pref.NAME, name);
                 myRef.child("users").child(userID).setValue(user);
                 finish();

@@ -31,6 +31,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sh.onlinehighschool.R;
 import com.sh.onlinehighschool.callback.OnSubjectListener;
@@ -39,7 +40,7 @@ import com.sh.onlinehighschool.dialog.ToggleDialog;
 import com.sh.onlinehighschool.fragment.HistoryFragment;
 import com.sh.onlinehighschool.fragment.HomeFragment;
 import com.sh.onlinehighschool.fragment.ImportedFragment;
-import com.sh.onlinehighschool.fragment.ImportedgvFregment;
+import com.sh.onlinehighschool.fragment.ImportedGiaoVienFragment;
 import com.sh.onlinehighschool.fragment.ScoreboardFragment;
 import com.sh.onlinehighschool.model.Subject;
 import com.sh.onlinehighschool.utils.InputHelper;
@@ -76,6 +77,10 @@ public class MainActivity extends AppCompatActivity implements OnSubjectListener
         initDrawer();
         initFragment();
 
+        if (mAuth.getCurrentUser() != null) {
+            String khoiHienTai = "khoi" + pref.getDataInt(Pref.KHOI) + "";
+            FirebaseMessaging.getInstance().subscribeToTopic(khoiHienTai);
+        }
     }
 
     @Override
@@ -133,8 +138,8 @@ public class MainActivity extends AppCompatActivity implements OnSubjectListener
             //sửa chỗ này
             try {
                 String str = pref.getData(Pref.EMAIL);
-                if (str.contains("@uneti.edu.vn")) {
-                    replaceFragment(ImportedgvFregment.newInstance(0), "Đề thi đã tải lên");
+                if (str.contains("@edu.vn")) {
+                    replaceFragment(ImportedGiaoVienFragment.newInstance(0), "Đề thi đã tải lên");
                     toolbar.getMenu().findItem(R.id.item_filter).setVisible(false);
                 } else {
                     replaceFragment(ImportedFragment.newInstance(0), "Đề thi đã tải lên");
@@ -220,7 +225,7 @@ public class MainActivity extends AppCompatActivity implements OnSubjectListener
                 }
                 break;
             case R.id.nav_on_exam:
-                showActivity(Onthionline.class);
+                showActivity(OnThiOnlineActivity.class);
                 break;
             case R.id.nav_history:
                 toggleFragment(item);
@@ -231,23 +236,48 @@ public class MainActivity extends AppCompatActivity implements OnSubjectListener
             case R.id.nav_import:
                 showActivity(ImportActivity.class);
                 break;
-            case R.id.nav_logout:
+            case R.id.nav_logout: {
                 mAuth.signOut();
                 navigationView.getMenu().findItem(R.id.nav_import_deon).setVisible(false);
+
+                String khoiHienTai = "khoi" + pref.getDataInt(Pref.KHOI) + "";
+                FirebaseMessaging.getInstance().unsubscribeFromTopic(khoiHienTai);
+                pref.clearAllData();
                 ID_GV = "MEO";
                 break;
+            }
             case R.id.nav_import_gv:
-                showActivity(Timgiaovien.class);
+                showActivity(TimGiaoVienActivity.class);
                 break;
             case R.id.nav_import_deon:
-                showActivity(Importdeon.class);
+                showActivity(ImportDeOnThiActivity.class);
                 break;
-            //case R.id.nav_exam: showActivity(Onthionline.class);break;
-            //case R.id.nav_imported_gv: toggleFragment(ImportedgvFregment.class);break;
-            //case R.id.nav_changepass:
-            //Intent intent = new Intent(MainActivity.this,Changepass.class);
-            //startActivity(intent);break;
-
+            case R.id.nav_upload_gv:
+                //sửa chỗ này
+                try {
+                    if (mAuth.getCurrentUser() != null) {
+                        showActivity(UploadVideoActivity.class);
+                        break;
+                    } else {
+                        Toast.makeText(MainActivity.this, "Bạn cần phải đăng nhập!", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    Toast.makeText(MainActivity.this, "Bạn cần phải đăng nhập!", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.nav_announce_gv:
+                //sửa chỗ này
+                try {
+                    if (mAuth.getCurrentUser() != null) {
+                        showActivity(SendNotificationActivity.class);
+                        break;
+                    } else {
+                        Toast.makeText(MainActivity.this, "Bạn cần phải đăng nhập!", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    Toast.makeText(MainActivity.this, "Bạn cần phải đăng nhập!", Toast.LENGTH_SHORT).show();
+                }
+                break;
         }
         return true;
     }
@@ -316,15 +346,12 @@ public class MainActivity extends AppCompatActivity implements OnSubjectListener
                 RelativeLayout.LayoutParams.MATCH_PARENT,
                 Units.dpToPx(40)
         );
+
         tvLogin.setText(R.string.login_now);
         tvLogin.setGravity(Gravity.CENTER);
         tvLogin.setBackgroundResource(R.drawable.bg_border_all_corner_20_transparent);
-        tvLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showActivity(LoginActivity.class);
-            }
-        });
+        tvLogin.setOnClickListener(v -> showActivity(LoginActivity.class));
+
         layoutHeader.addView(tvLogin, params);
         navigationView.getMenu().findItem(R.id.nav_logout).setVisible(false);
         navigationView.getMenu().findItem(R.id.nav_import_gv).setVisible(false);
@@ -380,21 +407,21 @@ public class MainActivity extends AppCompatActivity implements OnSubjectListener
         layoutHeader.addView(tvName, params2);
         layoutHeader.addView(tvEmail, params3);
         String str = tvEmail.getText().toString();
-        if (str.contains("@uneti.edu.vn")) {
+        if (str.contains("@edu.vn")) {
             navigationView.getMenu().findItem(R.id.nav_import_gv).setVisible(true);
-            //navigationView.getMenu().findItem(R.id.nav_import_deon).setVisible(true);
+            navigationView.getMenu().findItem(R.id.nav_upload_gv).setVisible(true);
             navigationView.getMenu().findItem(R.id.nav_import).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_exam).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_on_exam).setVisible(false);
-            //navigationView.getMenu().findItem(R.id.nav_imported_gv).setVisible(true);
+            navigationView.getMenu().findItem(R.id.nav_announce_gv).setVisible(true);
             //navigationView.getMenu().findItem(R.id.nav_imported).setVisible(false);
         } else {
-            navigationView.getMenu().findItem(R.id.nav_import).setVisible(true);
             navigationView.getMenu().findItem(R.id.nav_import_gv).setVisible(false);
-            navigationView.getMenu().findItem(R.id.nav_import_deon).setVisible(false);
+            navigationView.getMenu().findItem(R.id.nav_upload_gv).setVisible(false);
+            navigationView.getMenu().findItem(R.id.nav_import).setVisible(true);
             navigationView.getMenu().findItem(R.id.nav_exam).setVisible(true);
-            //navigationView.getMenu().findItem(R.id.nav_on_exam).setVisible(true);
-            //navigationView.getMenu().findItem(R.id.nav_imported_gv).setVisible(false);
+            navigationView.getMenu().findItem(R.id.nav_import_deon).setVisible(false);
+            navigationView.getMenu().findItem(R.id.nav_announce_gv).setVisible(false);
             //navigationView.getMenu().findItem(R.id.nav_imported).setVisible(true);
         }
         layoutHeader.setOnClickListener(new View.OnClickListener() {
@@ -410,7 +437,7 @@ public class MainActivity extends AppCompatActivity implements OnSubjectListener
         pref = new Pref(this);
         String str = pref.getData(Pref.EMAIL);
         try {
-            if (str.contains("@uneti.edu.vn")) {
+            if (str.contains("@edu.vn")) {
                 DatabaseReference mDatabase;
                 mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(pref.getData(Pref.UID)).child("idgv");
 
@@ -419,6 +446,7 @@ public class MainActivity extends AppCompatActivity implements OnSubjectListener
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         String value = dataSnapshot.getValue(String.class);
                         ID_GV = value;
+                        pref.saveData(Pref.ID_GV, value);
                     }
 
                     @Override

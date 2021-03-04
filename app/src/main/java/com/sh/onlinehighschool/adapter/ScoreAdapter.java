@@ -44,7 +44,7 @@ public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ItemHolder> 
                 " (" + QuizHelper.getStringScore(score.getMinScore()) + " - " +
                 QuizHelper.getStringScore(score.getMaxScore()) + ")";
         holder.tvScore.setText(Html.fromHtml(rowScore));
-        if (position %2 == 0){
+        if (position % 2 == 0) {
             //Nếu dòng chẵn (VD: 0, 2,...) -> Cho màu nền trắng
             holder.layoutItem.setBackgroundColor(Color.WHITE);
         } else {
@@ -58,12 +58,13 @@ public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ItemHolder> 
         return scores.size();
     }
 
-    class ItemHolder extends RecyclerView.ViewHolder{
+    class ItemHolder extends RecyclerView.ViewHolder {
 
         private LinearLayout layoutItem;
         private TextView tvSubject;
         private TextView tvViews;
         private TextView tvScore;
+
         ItemHolder(View view) {
             super(view);
             layoutItem = view.findViewById(R.id.layout_item);

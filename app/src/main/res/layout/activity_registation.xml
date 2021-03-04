@@ -37,8 +37,7 @@
                     android:layout_height="match_parent"
                     android:hint="@string/name"
                     android:inputType="textImeMultiLine"
-                    android:textColor="@color/black"
-                    tools:text="Hà Hữu Hải" />
+                    android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -53,8 +52,7 @@
                     android:layout_height="match_parent"
                     android:hint="@string/email"
                     android:inputType="textEmailAddress"
-                    android:textColor="@color/black"
-                    tools:text="huuhaiuneti@gmail.com" />
+                    android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -69,9 +67,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="@string/password"
-                    android:textColor="@color/black"
-                    tools:text="123456" />
+                    android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
+
+
+            <Spinner
+                android:id="@+id/spnKhoiRegister"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_large"
+                android:gravity="center_vertical" />
 
             <RelativeLayout
                 android:layout_width="match_parent"

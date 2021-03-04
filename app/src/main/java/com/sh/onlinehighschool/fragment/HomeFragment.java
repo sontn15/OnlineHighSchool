@@ -16,8 +16,10 @@ import androidx.fragment.app.Fragment;
 
 import com.sh.onlinehighschool.R;
 import com.sh.onlinehighschool.activity.PracticeActivity;
+import com.sh.onlinehighschool.activity.VideoActivity;
 import com.sh.onlinehighschool.adapter.SubjectAdapter;
-import com.sh.onlinehighschool.callback.OnRecyclerViewListener;
+import com.sh.onlinehighschool.callback.OnSelectTypeMonHocDialogListener;
+import com.sh.onlinehighschool.dialog.SelectTypeMonHocDialog;
 import com.sh.onlinehighschool.model.Subject;
 import com.sh.onlinehighschool.utils.DBAssetHelper;
 import com.sh.onlinehighschool.utils.Pref;
@@ -51,63 +53,76 @@ public class HomeFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recycler_view);
     }
 
+    private Subject subject;
+    private int khoi;
     private Pref pref;
     private DBAssetHelper dbAssetHelper;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        pref = new Pref(getActivity());
-        dbAssetHelper = new DBAssetHelper(getActivity());
-        initData(pref.getFaculty(), pref.getYear());
+        dbAssetHelper = new DBAssetHelper(requireActivity());
+        pref = new Pref(requireActivity());
+        khoi = pref.getDataInt(Pref.KHOI);
+        if (khoi == -1) {
+            khoi = 12;
+        }
+        initData(khoi + "");
     }
 
-    private void initData(String faculty, String year) {
-        final ArrayList<Subject> subjects = dbAssetHelper.subjects(faculty, year);
+    private void initData(String year) {
+        final ArrayList<Subject> subjects = dbAssetHelper.subjects(year);
         if (subjects.size() == 0) {
             tvTitle.setVisibility(View.GONE);
             tvStatus.setVisibility(View.VISIBLE);
             tvStatus.setText(Html.fromHtml("Không có dữ liệu cho điều kiện lọc:" +
                     "<br>• " + year +
-                    "<br>• " + faculty +
                     "<br>Vui lòng chọn điều kiện lọc khác"));
         } else {
             tvStatus.setVisibility(View.GONE);
-            if (getTitle(faculty, year).equals("")) {
+            if (getTitle(year).equals("")) {
                 tvTitle.setVisibility(View.GONE);
             } else {
                 tvTitle.setVisibility(View.VISIBLE);
-                tvTitle.setText(getTitle(faculty, year));
+                tvTitle.setText("Danh sách môn học " + year);
             }
         }
-        SubjectAdapter adapter = new SubjectAdapter(subjects, new OnRecyclerViewListener() {
-            @Override
-            public void onItemChange(View view, int position) {
-                Subject subject = subjects.get(position);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("SUBJECT", subject);
-                Intent intent = new Intent(getActivity(), PracticeActivity.class);
-                intent.putExtras(bundle);
-                startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.no_animation);
-            }
+        SubjectAdapter adapter = new SubjectAdapter(subjects, (view, position) -> {
+            subject = subjects.get(position);
+            SelectTypeMonHocDialog dialog = SelectTypeMonHocDialog.newInstance("DIALOG_SELECT", "LỰA CHỌN " + subject.getName().toUpperCase(), "Tùy chọn chức năng tiếp theo");
+            dialog.show(requireFragmentManager(), dialog.getTag());
+            dialog.setmListener(new OnSelectTypeMonHocDialogListener() {
+                @Override
+                public void onClickVideoMonHoc() {
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable("SUBJECT_SELECTED", subject);
+                    Intent intent = new Intent(requireActivity(), VideoActivity.class);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                    requireActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.no_animation);
+                }
+
+                @Override
+                public void onClickOnTapMonHoc() {
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable("SUBJECT", subject);
+                    Intent intent = new Intent(getActivity(), PracticeActivity.class);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                    requireActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.no_animation);
+                }
+            });
+
         });
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
         ViewCompat.setNestedScrollingEnabled(recyclerView, false);
     }
 
-    private String getTitle(String faculty, String year) {
+    private String getTitle(String year) {
         String title = "";
-        if (!faculty.equals(Pref.DEFAULT_FACULTY)) {
-            title = faculty.toUpperCase();
-        }
         if (!year.equals(Pref.DEFAULT_YEAR)) {
-            if (title.equals("")) {
-                title = year.toUpperCase();
-            } else {
-                title = title + "\n(" + year + ")";
-            }
+            title = year.toUpperCase();
         }
         return title;
     }
@@ -119,7 +134,7 @@ public class HomeFragment extends Fragment {
             String year = hashMap.get("year");
             if ((faculty != null && !faculty.equals(pref.getFaculty())) ||
                     (year != null && !year.equals(pref.getYear()))) {
-                initData(faculty, year);
+                initData(year);
                 pref.saveData(Pref.FACULTY, faculty);
                 pref.saveData(Pref.YEAR, year);
             }
