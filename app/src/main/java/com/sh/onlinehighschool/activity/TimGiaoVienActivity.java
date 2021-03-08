@@ -24,7 +24,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,7 +34,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -269,29 +267,6 @@ public class TimGiaoVienActivity extends AppCompatActivity implements View.OnCli
         });
     }
 
-    /*private void inputmagv(){
-        if (magiaovien != 0){
-            magv.getEditText().setText(String.valueOf(magiaovien));
-        }
-        //mamh.getEditText().setText(String.valueOf(madethi));
-        magv.getEditText().addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                magv.setErrorEnabled(false);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                magiaovien=Integer.parseInt(s.toString());
-            }
-        });
-    }*/
-    //@Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bt_next:
@@ -349,12 +324,10 @@ public class TimGiaoVienActivity extends AppCompatActivity implements View.OnCli
         String emptyTime = InputHelper.emptyData(time, "thời gian thi");
         String emptyExamName = InputHelper.emptyData(examName, "tên đề thi");
         String madt = InputHelper.emptyData(madethi, "mã đề thi");
-        //String mgv = InputHelper.emptyData(magiaovien,"mã giáo viên");
         setError(inputSubjectID, errSubjectID());
         setError(inputTime, emptyTime);
         setError(inputExamName, emptyExamName);
         setError(mamh, madt);
-        //setError(magv,mgv);
         if (errSubjectID() == null && emptyTime == null && emptyExamName == null) {
             uploadFile();
         }
@@ -396,26 +369,19 @@ public class TimGiaoVienActivity extends AppCompatActivity implements View.OnCli
             if (questions.size() > 0) {
                 onLoading();
                 StorageReference storageRef = FirebaseStorage.getInstance().getReference("exams");
-                //Tên file tải lên
-                //final String fileName = String.valueOf(System.currentTimeMillis());
-                final String fileName = String.valueOf(String.valueOf(madethi));
-                //String pathChild = mAuth.getUid() + "/" + fileName + ".json";
-                //String pathChild = String.valueOf(subjectID)+ "/"+String.valueOf(magiaovien)+"/" + String.valueOf(madethi)+".json";
-                String pathChild = String.valueOf(subjectID) + "/" + idGV + "/" + String.valueOf(madethi) + ".json";
+                final String fileName = String.valueOf(madethi);
+                String pathChild = subjectID + "/" + idGV + "/" + madethi + ".json";
                 storageRef.child(pathChild).putFile(uriPath)
-                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                setInfo("Tải đề thi thành công:" +
-                                        "<br>- Mã môn học: " + subjectID +
-                                        "<br>- Tên đề thi: " + examName +
-                                        "<br>- Mã đề thi: " + madethi +
-                                        "<br>- Mã giáo viên: " + idGV +
-                                        "<br>- Thời gian thi: " + time + " phút" +
-                                        "<br>- Số câu hỏi: " + questions.size());
-                                createDatabase(fileName, questions.size());
-                                onUploadComplete();
-                            }
+                        .addOnSuccessListener(taskSnapshot -> {
+                            setInfo("Tải đề thi thành công:" +
+                                    "<br>- Mã môn học: " + subjectID +
+                                    "<br>- Tên đề thi: " + examName +
+                                    "<br>- Mã đề thi: " + madethi +
+                                    "<br>- Mã giáo viên: " + idGV +
+                                    "<br>- Thời gian thi: " + time + " phút" +
+                                    "<br>- Số câu hỏi: " + questions.size());
+                            createDatabase(fileName, questions.size());
+                            onUploadComplete();
                         })
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
