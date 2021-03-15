@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.Html;
@@ -45,7 +44,7 @@ import com.sh.onlinehighschool.dialog.SubjectDialog;
 import com.sh.onlinehighschool.model.Question;
 import com.sh.onlinehighschool.model.Subject;
 import com.sh.onlinehighschool.utils.DBAssetHelper;
-import com.sh.onlinehighschool.utils.FileUtil;
+import com.sh.onlinehighschool.utils.FileUtils;
 import com.sh.onlinehighschool.utils.IOHelper;
 import com.sh.onlinehighschool.utils.InputHelper;
 import com.sh.onlinehighschool.utils.Pref;
@@ -134,20 +133,10 @@ public class ImportDeOnThiActivity extends AppCompatActivity implements View.OnC
         inputExamName = findViewById(R.id.input_exam_name);
         progressBarNext = findViewById(R.id.progressbar_next);
         tvAttachFile = findViewById(R.id.tv_attach_file);
-        tvAttachFile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                attachFile();
-            }
-        });
+        tvAttachFile.setOnClickListener(v -> attachFile());
         tvExamInfo = findViewById(R.id.tv_exam_info);
         btNext = findViewById(R.id.bt_next);
-        btNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                initNext();
-            }
-        });
+        btNext.setOnClickListener(v -> initNext());
         layoutStatus = findViewById(R.id.layout_status);
         progressBar = findViewById(R.id.progressbar);
         tvStatus = findViewById(R.id.tv_status);
@@ -158,12 +147,9 @@ public class ImportDeOnThiActivity extends AppCompatActivity implements View.OnC
         if (subjectID != 0) {
             inputSubjectID.getEditText().setText(String.valueOf(subjectID));
         }
-        inputSubjectID.setEndIconOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SubjectDialog dialog = new SubjectDialog();
-                dialog.show(getSupportFragmentManager(), dialog.getTag());
-            }
+        inputSubjectID.setEndIconOnClickListener(v -> {
+            SubjectDialog dialog = new SubjectDialog();
+            dialog.show(getSupportFragmentManager(), dialog.getTag());
         });
         inputSubjectID.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
@@ -242,7 +228,6 @@ public class ImportDeOnThiActivity extends AppCompatActivity implements View.OnC
         if (madethi != 0) {
             mamh.getEditText().setText(String.valueOf(madethi));
         }
-        //mamh.getEditText().setText(String.valueOf(madethi));
         mamh.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -300,38 +285,32 @@ public class ImportDeOnThiActivity extends AppCompatActivity implements View.OnC
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 2 && resultCode == Activity.RESULT_OK && data.getData() != null) {
-            uriPath = data.getData();
-            if (uriPath != null) {
-                if (Build.VERSION.SDK_INT >= 26) {
-                    File file = new File(uriPath.getPath());
-                    final String[] split = file.getPath().split(":");
-                    filePath = split[1];
-                } else {
-                    filePath = FileUtil.getPath(this, uriPath);
+        if (data != null && requestCode == 2 && resultCode == Activity.RESULT_OK && data.getData() != null) {
+            if (data.getData() != null) {
+                uriPath = data.getData();
+                if (uriPath != null) {
+                    filePath = FileUtils.getPath(ImportDeOnThiActivity.this, uriPath);
+                    tvAttachFile.setText(filePath);
                 }
-                tvAttachFile.setText(filePath);
             }
         }
     }
 
     private void initNext() {
-        String emptyTime = InputHelper.emptyData(time, "thời gian thi");
-        String emptyExamName = InputHelper.emptyData(examName, "tên đề thi");
-        String madt = InputHelper.emptyData(madethi, "mã đề thi");
-        //String mgv = InputHelper.emptyData(magiaovien,"mã giáo viên");
+        String emptyTime = InputHelper.emptyData(time, "Thời gian thi");
+        String emptyExamName = InputHelper.emptyData(examName, "Tên đề thi");
+        String madt = InputHelper.emptyData(madethi, "Mã đề thi");
         setError(inputSubjectID, errSubjectID());
         setError(inputTime, emptyTime);
         setError(inputExamName, emptyExamName);
         setError(mamh, madt);
-        //setError(magv,mgv);
         if (errSubjectID() == null && emptyTime == null && emptyExamName == null) {
             uploadFile();
         }
     }
 
     private String errSubjectID() {
-        if (InputHelper.emptyData(subjectID, "mã môn học") == null) {
+        if (InputHelper.emptyData(subjectID, "Mã môn học") == null) {
             DBAssetHelper dbAssetHelper = new DBAssetHelper(this);
             if (dbAssetHelper.subject(subjectID).getName() == null) {
                 return "Mã môn học không hợp lệ";

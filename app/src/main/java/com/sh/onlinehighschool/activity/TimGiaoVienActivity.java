@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.Html;
@@ -45,7 +44,7 @@ import com.sh.onlinehighschool.dialog.SubjectDialog;
 import com.sh.onlinehighschool.model.Question;
 import com.sh.onlinehighschool.model.Subject;
 import com.sh.onlinehighschool.utils.DBAssetHelper;
-import com.sh.onlinehighschool.utils.FileUtil;
+import com.sh.onlinehighschool.utils.FileUtils;
 import com.sh.onlinehighschool.utils.IOHelper;
 import com.sh.onlinehighschool.utils.InputHelper;
 import com.sh.onlinehighschool.utils.Pref;
@@ -305,17 +304,13 @@ public class TimGiaoVienActivity extends AppCompatActivity implements View.OnCli
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 2 && resultCode == Activity.RESULT_OK && data.getData() != null) {
-            uriPath = data.getData();
-            if (uriPath != null) {
-                if (Build.VERSION.SDK_INT >= 26) {
-                    File file = new File(uriPath.getPath());
-                    final String[] split = file.getPath().split(":");
-                    filePath = split[1];
-                } else {
-                    filePath = FileUtil.getPath(this, uriPath);
+        if (data != null && requestCode == 2 && resultCode == Activity.RESULT_OK && data.getData() != null) {
+            if (data.getData() != null) {
+                uriPath = data.getData();
+                if (uriPath != null) {
+                    filePath = FileUtils.getPath(TimGiaoVienActivity.this, uriPath);
+                    tvAttachFile.setText(filePath);
                 }
-                tvAttachFile.setText(filePath);
             }
         }
     }
