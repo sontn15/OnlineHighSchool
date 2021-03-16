@@ -12,6 +12,12 @@
             android:title="Trang chủ" />
 
         <item
+            android:id="@+id/nav_time_table"
+            android:icon="@drawable/ic_test_on_luyen"
+            android:title="Thời khóa biểu"
+            android:visible="false" />
+
+        <item
             android:id="@+id/nav_imported"
             android:icon="@drawable/ic_file_download"
             android:title="Đề thi đã tải lên" />
@@ -53,6 +59,11 @@
             android:id="@+id/nav_import_gv"
             android:icon="@drawable/ic_file_upload"
             android:title="Import đề thi" />
+
+        <item
+            android:id="@+id/nav_timetable_manage"
+            android:icon="@drawable/ic_scoreboard"
+            android:title="Quản lý thời khóa biểu" />
 
         <item
             android:id="@+id/nav_upload_gv"

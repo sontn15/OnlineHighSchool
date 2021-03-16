@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -212,7 +211,6 @@ public class MainActivity extends AppCompatActivity implements OnSubjectListener
                 toggleFragment(item);
                 break;
             case R.id.nav_exam:
-                //sửa chỗ này
                 try {
                     if (mAuth.getCurrentUser() != null) {
                         showActivity(ExamActivity.class);
@@ -278,6 +276,33 @@ public class MainActivity extends AppCompatActivity implements OnSubjectListener
                     Toast.makeText(MainActivity.this, "Bạn cần phải đăng nhập!", Toast.LENGTH_SHORT).show();
                 }
                 break;
+
+            case R.id.nav_time_table: {
+                try {
+                    if (mAuth.getCurrentUser() != null) {
+                        showActivity(TimeTableActivity.class);
+                        break;
+                    } else {
+                        Toast.makeText(MainActivity.this, "Bạn cần phải đăng nhập!", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    Toast.makeText(MainActivity.this, "Bạn cần phải đăng nhập!", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            }
+            case R.id.nav_timetable_manage: {
+                try {
+                    if (mAuth.getCurrentUser() != null) {
+                        showActivity(TimeTableTeacherActivity.class);
+                        break;
+                    } else {
+                        Toast.makeText(MainActivity.this, "Bạn cần phải đăng nhập!", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    Toast.makeText(MainActivity.this, "Bạn cần phải đăng nhập!", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            }
         }
         return true;
     }
@@ -414,22 +439,21 @@ public class MainActivity extends AppCompatActivity implements OnSubjectListener
             navigationView.getMenu().findItem(R.id.nav_exam).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_on_exam).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_announce_gv).setVisible(true);
-            //navigationView.getMenu().findItem(R.id.nav_imported).setVisible(false);
+            navigationView.getMenu().findItem(R.id.nav_time_table).setVisible(true);
+            navigationView.getMenu().findItem(R.id.nav_timetable_manage).setVisible(true);
         } else {
             navigationView.getMenu().findItem(R.id.nav_import_gv).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_upload_gv).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_import).setVisible(true);
             navigationView.getMenu().findItem(R.id.nav_exam).setVisible(true);
-            navigationView.getMenu().findItem(R.id.nav_import_deon).setVisible(false);
+            navigationView.getMenu().findItem(R.id.nav_import_deon).setVisible(true);
             navigationView.getMenu().findItem(R.id.nav_announce_gv).setVisible(false);
-            //navigationView.getMenu().findItem(R.id.nav_imported).setVisible(true);
+            navigationView.getMenu().findItem(R.id.nav_time_table).setVisible(true);
+            navigationView.getMenu().findItem(R.id.nav_timetable_manage).setVisible(false);
         }
-        layoutHeader.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //show profile
-                showActivity(ProfileActivity.class);
-            }
+        layoutHeader.setOnClickListener(v -> {
+            //show profile
+            showActivity(ProfileActivity.class);
         });
     }
 

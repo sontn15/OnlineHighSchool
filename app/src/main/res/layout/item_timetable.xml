@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="3dp"
+    android:layout_marginBottom="3dp"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp">
+
+    <TextView
+        android:id="@+id/tvThuTimeTableItem"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/colorGachChan"
+        android:gravity="center_vertical"
+        android:text="Thứ 2"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorGachChan" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <LinearLayout
+            android:id="@+id/llSangTimeTableItem"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:id="@+id/tvSangTimeTableItem"
+                android:text="Sáng"
+                android:textColor="@color/colorXanh"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvTiet1SangTimeTableItem"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:text="Tiết 1: Toán"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tvTiet2SangTimeTableItem"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:text="Tiết 2: Toán"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tvTiet3SangTimeTableItem"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:text="Tiết 3: Toán"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tvTiet4SangTimeTableItem"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:text="Tiết 4: Toán"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tvTiet5SangTimeTableItem"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:text="Tiết 5: Toán"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llChieuTimeTableItem"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="Chiều"
+                android:id="@+id/tvChieuTimeTableItem"
+                android:textColor="@color/colorXanh"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvTiet1ChieuTimeTableItem"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:text="Tiết 1: Toán"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tvTiet2ChieuTimeTableItem"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:text="Tiết 2: Toán"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tvTiet3ChieuTimeTableItem"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:text="Tiết 3: Toán"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tvTiet4ChieuTimeTableItem"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:text="Tiết 4: Toán"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tvTiet5ChieuTimeTableItem"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:text="Tiết 5: Toán"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@color/colorGachChan" />
+
+</LinearLayout>
