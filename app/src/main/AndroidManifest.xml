@@ -59,7 +59,7 @@
         <activity android:name=".activity.ChangePasswordActivity" />
         <activity android:name=".activity.TimGiaoVienActivity" />
         <activity
-            android:name=".activity.LaunchActivity"
+            android:name=".activity.SplashScreenActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
