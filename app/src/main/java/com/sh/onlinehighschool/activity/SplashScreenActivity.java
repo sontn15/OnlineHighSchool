@@ -23,16 +23,18 @@ public class SplashScreenActivity extends AwesomeSplash {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         // background animation
-        configSplash.setBackgroundColor(R.color.colorPrimary);
-        configSplash.setAnimCircularRevealDuration(2000);
+        configSplash.setBackgroundColor(R.color.white);
+        configSplash.setAnimCircularRevealDuration(500);
         configSplash.setRevealFlagX(Flags.REVEAL_LEFT);
         configSplash.setRevealFlagX(Flags.REVEAL_BOTTOM);
 
         // logo
-        configSplash.setLogoSplash(R.drawable.ic_launcher);
+        configSplash.setLogoSplash(R.drawable.ic_logo);
+        configSplash.setOriginalHeight(100);
+        configSplash.setOriginalWidth(100);
         // title
         configSplash.setTitleSplash("Online High School");
-        configSplash.setTitleTextColor(R.color.white);
+        configSplash.setTitleTextColor(R.color.colorPrimary);
         configSplash.setTitleTextSize(30f);
         configSplash.setAnimTitleDuration(1000);
         configSplash.setAnimTitleTechnique(Techniques.FlipInX);

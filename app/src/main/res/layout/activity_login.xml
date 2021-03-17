@@ -64,6 +64,7 @@
                 android:minHeight="40dp"
                 android:text="@string/registration"
                 android:textColor="@color/black_selector"
+                android:textSize="15dp"
                 tools:ignore="RelativeOverlap" />
 
             <RelativeLayout

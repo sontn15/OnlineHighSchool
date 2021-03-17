@@ -7,9 +7,9 @@
     <string name="email">Email</string>
     <string name="password">Mật khẩu</string>
     <string name="login">Đăng nhập</string>
-    <string name="registration">Tạo tài khoản</string>
+    <string name="registration">Chưa có tài khoản? Đăng kí ngay</string>
 
-    <string name="no_login">Bạn phải đăng nhập mới có thể sử dụng chức năng này</string>
+    <string name="no_login">Bạn cần đăng nhập để học trực tuyến!</string>
     <string name="input_exam_id">Mã đề thi</string>
     <string name="input_subject_id">Mã môn học</string>
     <string name="input_exam_name">Tên đề thi</string>

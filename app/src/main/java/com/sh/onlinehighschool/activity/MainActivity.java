@@ -145,7 +145,7 @@ public class MainActivity extends AppCompatActivity implements OnSubjectListener
                     toolbar.getMenu().findItem(R.id.item_filter).setVisible(true);
                 }
             } catch (Exception e) {
-                Toast.makeText(MainActivity.this, "Bạn cần phải đăng nhập!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Bạn cần đăng nhập để học trực tuyến!", Toast.LENGTH_SHORT).show();
             }
         } else if (navItem == R.id.nav_scoreboard) {
             replaceFragment(new ScoreboardFragment(), "Bảng điểm");
@@ -216,10 +216,10 @@ public class MainActivity extends AppCompatActivity implements OnSubjectListener
                         showActivity(ExamActivity.class);
                         break;
                     } else {
-                        Toast.makeText(MainActivity.this, "Bạn cần phải đăng nhập!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Bạn cần đăng nhập để học trực tuyến!", Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception e) {
-                    Toast.makeText(MainActivity.this, "Bạn cần phải đăng nhập!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Bạn cần đăng nhập để học trực tuyến!", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.nav_on_exam:
@@ -257,10 +257,10 @@ public class MainActivity extends AppCompatActivity implements OnSubjectListener
                         showActivity(UploadVideoActivity.class);
                         break;
                     } else {
-                        Toast.makeText(MainActivity.this, "Bạn cần phải đăng nhập!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Bạn cần đăng nhập để học trực tuyến!", Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception e) {
-                    Toast.makeText(MainActivity.this, "Bạn cần phải đăng nhập!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Bạn cần đăng nhập để học trực tuyến!", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.nav_announce_gv:
@@ -270,10 +270,10 @@ public class MainActivity extends AppCompatActivity implements OnSubjectListener
                         showActivity(SendNotificationActivity.class);
                         break;
                     } else {
-                        Toast.makeText(MainActivity.this, "Bạn cần phải đăng nhập!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Bạn cần đăng nhập để học trực tuyến!", Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception e) {
-                    Toast.makeText(MainActivity.this, "Bạn cần phải đăng nhập!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Bạn cần đăng nhập để học trực tuyến!", Toast.LENGTH_SHORT).show();
                 }
                 break;
 
@@ -283,10 +283,10 @@ public class MainActivity extends AppCompatActivity implements OnSubjectListener
                         showActivity(TimeTableActivity.class);
                         break;
                     } else {
-                        Toast.makeText(MainActivity.this, "Bạn cần phải đăng nhập!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Bạn cần đăng nhập để học trực tuyến!", Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception e) {
-                    Toast.makeText(MainActivity.this, "Bạn cần phải đăng nhập!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Bạn cần đăng nhập để học trực tuyến!", Toast.LENGTH_SHORT).show();
                 }
                 break;
             }
@@ -296,10 +296,10 @@ public class MainActivity extends AppCompatActivity implements OnSubjectListener
                         showActivity(TimeTableTeacherActivity.class);
                         break;
                     } else {
-                        Toast.makeText(MainActivity.this, "Bạn cần phải đăng nhập!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Bạn cần đăng nhập để học trực tuyến!", Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception e) {
-                    Toast.makeText(MainActivity.this, "Bạn cần phải đăng nhập!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Bạn cần đăng nhập để học trực tuyến!", Toast.LENGTH_SHORT).show();
                 }
                 break;
             }
