@@ -476,13 +476,12 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         //Lưu kết quả vào database
         dbHelper.insertHistory(lastHistory());
         if (type.equals("exam")) {
-            //Nếu đang thi online -> Lưu kết quả lên Firebase
             myRef = FirebaseDatabase.getInstance().getReference("histories");
             myRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    //Lưu lịch sử thi tới đường dẫn: histories/UID/thời gian thi
                     String path = pref.getData(Pref.UID) + "/" + lastHistory().getSubmitted();
+                    myRef.child(path).child("name").setValue(pref.getData(Pref.NAME));
                     myRef.child(path).child("subjectID").setValue(exam.getSubjectID());
                     myRef.child(path).child("type").setValue(type);
                     myRef.child(path).child("examID").setValue(exam.getId());

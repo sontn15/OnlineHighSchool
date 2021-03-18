@@ -378,10 +378,17 @@ public class MainActivity extends AppCompatActivity implements OnSubjectListener
         tvLogin.setOnClickListener(v -> showActivity(LoginActivity.class));
 
         layoutHeader.addView(tvLogin, params);
+        navigationView.getMenu().findItem(R.id.nav_exam).setVisible(false);
+        navigationView.getMenu().findItem(R.id.nav_import).setVisible(false);
         navigationView.getMenu().findItem(R.id.nav_logout).setVisible(false);
-        navigationView.getMenu().findItem(R.id.nav_import_gv).setVisible(false);
-        navigationView.getMenu().findItem(R.id.nav_import_deon).setVisible(false);
         navigationView.getMenu().findItem(R.id.nav_on_exam).setVisible(false);
+        navigationView.getMenu().findItem(R.id.nav_imported).setVisible(false);
+        navigationView.getMenu().findItem(R.id.nav_import_gv).setVisible(false);
+        navigationView.getMenu().findItem(R.id.nav_upload_gv).setVisible(false);
+        navigationView.getMenu().findItem(R.id.nav_time_table).setVisible(false);
+        navigationView.getMenu().findItem(R.id.nav_import_deon).setVisible(false);
+        navigationView.getMenu().findItem(R.id.nav_announce_gv).setVisible(false);
+        navigationView.getMenu().findItem(R.id.nav_timetable_manage).setVisible(false);
     }
 
     private static final int IV_AVATAR_ID = 1;
@@ -444,7 +451,7 @@ public class MainActivity extends AppCompatActivity implements OnSubjectListener
         } else {
             navigationView.getMenu().findItem(R.id.nav_import_gv).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_upload_gv).setVisible(false);
-            navigationView.getMenu().findItem(R.id.nav_import).setVisible(true);
+            navigationView.getMenu().findItem(R.id.nav_import).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_exam).setVisible(true);
             navigationView.getMenu().findItem(R.id.nav_import_deon).setVisible(true);
             navigationView.getMenu().findItem(R.id.nav_announce_gv).setVisible(false);
