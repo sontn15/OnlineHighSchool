@@ -121,13 +121,10 @@ public class ChangePasswordActivity extends AppCompatActivity {
     }
 
     private void NhapLai() {
-        tvReset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                currentpass.getEditText().setText("");
-                newpass.getEditText().setText("");
-                cofirmpass.getEditText().setText("");
-            }
+        tvReset.setOnClickListener(v -> {
+            currentpass.getEditText().setText("");
+            newpass.getEditText().setText("");
+            cofirmpass.getEditText().setText("");
         });
     }
 

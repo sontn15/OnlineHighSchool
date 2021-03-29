@@ -34,8 +34,6 @@ import com.sh.onlinehighschool.utils.Pref;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private static final String TAG = "LoginActivity";
-
     private FirebaseAuth mAuth;
     private DatabaseReference myRef;
 
@@ -47,7 +45,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "OnCreate");
         setContentView(R.layout.activity_login);
         pref = new Pref(this);
         mAuth = FirebaseAuth.getInstance();
@@ -159,6 +156,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
+                pref.putUser(Pref.USER, user);
                 pref.saveData(Pref.UID, uid);
                 pref.saveData(Pref.EMAIL, user.getEmail());
                 pref.saveData(Pref.PASSWORD, userPassword);
@@ -170,7 +168,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                 String khoiHienTai = "khoi" + user.getKhoi();
                 FirebaseMessaging.getInstance().subscribeToTopic(khoiHienTai);
-                Log.d("SONTN7", "subscribeToTopic " + khoiHienTai + " successfully!");
 
                 kiemtraGV();
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -197,8 +194,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 mDatabase.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        String value = dataSnapshot.getValue(String.class);
-                        MainActivity.ID_GV = value;
+                        MainActivity.ID_GV = dataSnapshot.getValue(String.class);
                     }
 
                     @Override

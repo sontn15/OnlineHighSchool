@@ -88,6 +88,11 @@
         <activity
             android:name=".activity.VideoActivity"
             android:theme="@style/AppTheme" />
+
+        <activity
+            android:name=".activity.ViewVideoActivity"
+            android:theme="@style/AppTheme" />
+
         <activity
             android:name=".activity.UploadVideoActivity"
             android:theme="@style/AppTheme" />

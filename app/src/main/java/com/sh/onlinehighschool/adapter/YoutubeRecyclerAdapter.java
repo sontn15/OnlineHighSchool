@@ -13,9 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.pierfrancescosoffritti.youtubeplayer.player.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerView;
 import com.sh.onlinehighschool.R;
+import com.sh.onlinehighschool.callback.OnClickVideoListener;
 import com.sh.onlinehighschool.model.YoutubeVideo;
 
 import java.util.List;
@@ -26,10 +26,14 @@ import butterknife.ButterKnife;
 public class YoutubeRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     public static final int VIEW_TYPE_NORMAL = 1;
     private List<YoutubeVideo> mYoutubeVideos;
-    DisplayMetrics displayMetrics = new DisplayMetrics();
+    private final OnClickVideoListener listener;
 
-    public YoutubeRecyclerAdapter(List<YoutubeVideo> youtubeVideos) {
+    private DisplayMetrics displayMetrics = new DisplayMetrics();
+
+
+    public YoutubeRecyclerAdapter(List<YoutubeVideo> youtubeVideos, OnClickVideoListener listener) {
         mYoutubeVideos = youtubeVideos;
+        this.listener = listener;
     }
 
     @NonNull
@@ -66,8 +70,6 @@ public class YoutubeRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder>
     public class ViewHolder extends BaseViewHolder {
         @BindView(R.id.textViewTitle)
         TextView textWaveTitle;
-        @BindView(R.id.btnPlay)
-        ImageView playButton;
         @BindView(R.id.imageViewItem)
         ImageView imageViewItems;
         @BindView(R.id.youtube_view)
@@ -99,22 +101,12 @@ public class YoutubeRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder>
                             .into(imageViewItems);
                 }
                 imageViewItems.setVisibility(View.VISIBLE);
-                playButton.setVisibility(View.VISIBLE);
                 youTubePlayerView.setVisibility(View.GONE);
-                playButton.setOnClickListener(view -> {
-                    imageViewItems.setVisibility(View.GONE);
-                    youTubePlayerView.setVisibility(View.VISIBLE);
-                    playButton.setVisibility(View.GONE);
-                    youTubePlayerView.initialize(
-                            initializedYouTubePlayer -> initializedYouTubePlayer.addListener(
-                                    new AbstractYouTubePlayerListener() {
-                                        @Override
-                                        public void onReady() {
-                                            initializedYouTubePlayer.loadVideo(mYoutubeVideo.getVideoId(), 0);
-                                        }
-                                    }), true);
-                });
+
+                itemView.setOnClickListener(v -> listener.onClickView(mYoutubeVideos.get(position)));
             }
         }
     }
+
+
 }

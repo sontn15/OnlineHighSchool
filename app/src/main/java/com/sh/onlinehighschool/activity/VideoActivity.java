@@ -1,5 +1,6 @@
 package com.sh.onlinehighschool.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -8,7 +9,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,12 +26,10 @@ import com.sh.onlinehighschool.utils.Pref;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class VideoActivity extends AppCompatActivity {
 
-    @BindView(R.id.recyclerViewFeed)
     RecyclerView recyclerViewFeed;
     YoutubeRecyclerAdapter mRecyclerAdapter;
 
@@ -59,17 +57,24 @@ public class VideoActivity extends AppCompatActivity {
 
     private void initAdapter() {
         ButterKnife.bind(this);
-        // prepare data for list
         List<YoutubeVideo> youtubeVideos = new ArrayList<>();
-        mRecyclerAdapter = new YoutubeRecyclerAdapter(youtubeVideos);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerViewFeed.setLayoutManager(mLayoutManager);
-        recyclerViewFeed.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerAdapter = new YoutubeRecyclerAdapter(youtubeVideos, youtubeVideo -> {
+            Bundle mBundle = new Bundle();
+            mBundle.putParcelable("VIDEO_DETAIL", youtubeVideo);
+
+            Intent mIntent = new Intent(VideoActivity.this, ViewVideoActivity.class);
+            mIntent.putExtras(mBundle);
+            startActivity(mIntent);
+        });
         recyclerViewFeed.setAdapter(mRecyclerAdapter);
     }
 
     private void initWidgets() {
         toolbar = findViewById(R.id.toolbar);
+        recyclerViewFeed = this.findViewById(R.id.recyclerViewFeed);
+        LinearLayoutManager layoutManagerHot = new LinearLayoutManager(this);
+        layoutManagerHot.setOrientation(RecyclerView.VERTICAL);
+        recyclerViewFeed.setLayoutManager(layoutManagerHot);
     }
 
     private void initToolbar() {

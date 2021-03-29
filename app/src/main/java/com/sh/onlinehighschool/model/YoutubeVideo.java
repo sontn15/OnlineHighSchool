@@ -1,8 +1,11 @@
 package com.sh.onlinehighschool.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 
-public class YoutubeVideo implements Serializable {
+public class YoutubeVideo implements Serializable, Parcelable {
     private String title;
     private int id;
     private int khoi;
@@ -13,6 +16,28 @@ public class YoutubeVideo implements Serializable {
 
     public YoutubeVideo() {
     }
+
+    protected YoutubeVideo(Parcel in) {
+        title = in.readString();
+        id = in.readInt();
+        khoi = in.readInt();
+        subject = in.readString();
+        userId = in.readString();
+        videoId = in.readString();
+        imageUrl = in.readString();
+    }
+
+    public static final Creator<YoutubeVideo> CREATOR = new Creator<YoutubeVideo>() {
+        @Override
+        public YoutubeVideo createFromParcel(Parcel in) {
+            return new YoutubeVideo(in);
+        }
+
+        @Override
+        public YoutubeVideo[] newArray(int size) {
+            return new YoutubeVideo[size];
+        }
+    };
 
     public String getImageUrl() {
         return imageUrl;
@@ -68,5 +93,21 @@ public class YoutubeVideo implements Serializable {
 
     public void setSubject(String subject) {
         this.subject = subject;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(title);
+        dest.writeInt(id);
+        dest.writeInt(khoi);
+        dest.writeString(subject);
+        dest.writeString(userId);
+        dest.writeString(videoId);
+        dest.writeString(imageUrl);
     }
 }
