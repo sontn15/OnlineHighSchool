@@ -71,7 +71,7 @@ public class UploadVideoDialog extends BaseDialog implements View.OnClickListene
     }
 
     private TextView tvTitle;
-    private TextInputLayout edtTitleVideo, edtVideoId, edtImageUrl;
+    private TextInputLayout edtTitleVideo, edtVideoId;
     private Spinner spnMonHoc;
 
     private String titleVideo, imageUrl, videoId;
@@ -79,7 +79,6 @@ public class UploadVideoDialog extends BaseDialog implements View.OnClickListene
     @Override
     protected void initWidgets(View view) {
         edtTitleVideo = view.findViewById(R.id.input_title_video);
-        edtImageUrl = view.findViewById(R.id.input_imageurl_video);
         edtVideoId = view.findViewById(R.id.input_id_video);
 
         tvTitle = view.findViewById(R.id.tv_title_video);
@@ -116,26 +115,6 @@ public class UploadVideoDialog extends BaseDialog implements View.OnClickListene
             public void afterTextChanged(Editable editable) {
                 titleVideo = editable.toString();
                 edtTitleVideo.setErrorEnabled(false);
-            }
-        });
-
-        Objects.requireNonNull(edtImageUrl.getEditText()).setInputType(InputType.TYPE_CLASS_TEXT);
-        edtImageUrl.getEditText().setText(imageUrl);
-        edtImageUrl.getEditText().addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                imageUrl = editable.toString();
-                edtImageUrl.setErrorEnabled(false);
             }
         });
 

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_users" />
+
+        <TextView
+            android:id="@+id/tvNameCustomerCommentItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingStart="10dp"
+            android:text="Dinh Thanh Tung"
+            android:textColor="@color/colorXanh"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_chronometer" />
+
+        <TextView
+            android:id="@+id/tvTimeCommentItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:text="20:08 19/02/2021"
+            android:textColor="@color/black" />
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tvContentCommentItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="sdkfjds fksdjlfjks dlfjsdfijwjsdsfj sklfjsdfj sldjfkjfl sdjfisfjlk sdjflsd" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorGachChan"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp" />
+</LinearLayout>

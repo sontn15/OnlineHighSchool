@@ -60,7 +60,7 @@ public class UploadVideoActivity extends AppCompatActivity implements OnUploadVi
         ButterKnife.bind(this);
         // prepare data for list
         youtubeVideos = new ArrayList<>();
-        mRecyclerAdapter = new YoutubeRecyclerAdapter(youtubeVideos);
+        mRecyclerAdapter = new YoutubeRecyclerAdapter(youtubeVideos, null);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(UploadVideoActivity.this);
         recyclerViewFeed.setLayoutManager(mLayoutManager);
         recyclerViewFeed.setItemAnimator(new DefaultItemAnimator());
@@ -135,6 +135,7 @@ public class UploadVideoActivity extends AppCompatActivity implements OnUploadVi
     public void onClickConfirmUploadVideo(YoutubeVideo model) {
         model.setUserId(userId);
         model.setId((youtubeVideos.size() + 1));
+        model.setImageUrl("https://i.ytimg.com/vi/" + model.getVideoId() + "/maxresdefault.jpg");
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("videos");
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

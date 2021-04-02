@@ -3,11 +3,15 @@ package com.sh.onlinehighschool.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.google.gson.Gson;
+import com.sh.onlinehighschool.model.User;
+
 public class Pref {
 
     private static final String PREF_NAME = "MY_PREFERENCES";
     private static final int PRIVATE_MODE = 0;
 
+    public static final String USER = "USER";
     public static final String UID = "UID";
     public static final String ID_GV = "IDGV";
     public static final String NAME = "NAME";
@@ -62,5 +66,19 @@ public class Pref {
 
     public String getFaculty() {
         return preferences.getString(FACULTY, DEFAULT_FACULTY);
+    }
+
+    public void putUser(String key, User customer) {
+        SharedPreferences.Editor editor = preferences.edit();
+        Gson gson = new Gson();
+        String value = gson.toJson(customer);
+        editor.putString(key, value);
+        editor.apply();
+    }
+
+    public User getUser(String key) {
+        Gson gson = new Gson();
+        String json = preferences.getString(key, "");
+        return gson.fromJson(json, User.class);
     }
 }
