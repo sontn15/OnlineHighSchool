@@ -29,13 +29,13 @@ public class SplashScreenActivity extends AwesomeSplash {
         configSplash.setRevealFlagX(Flags.REVEAL_BOTTOM);
 
         // logo
-        configSplash.setLogoSplash(R.drawable.ic_logo);
-        configSplash.setOriginalHeight(100);
-        configSplash.setOriginalWidth(100);
+        configSplash.setLogoSplash(R.drawable.ic_logo_truong);
+        configSplash.setOriginalHeight(30);
+        configSplash.setOriginalWidth(30);
         // title
-        configSplash.setTitleSplash("Online High School");
+        configSplash.setTitleSplash("OHS - Trường học trực tuyến");
         configSplash.setTitleTextColor(R.color.colorPrimary);
-        configSplash.setTitleTextSize(30f);
+        configSplash.setTitleTextSize(26f);
         configSplash.setAnimTitleDuration(1000);
         configSplash.setAnimTitleTechnique(Techniques.FlipInX);
     }
